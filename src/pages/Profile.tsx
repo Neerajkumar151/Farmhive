@@ -166,7 +166,7 @@ const Profile: React.FC = () => {
 
       // Razorpay Checkout
       const options = {
-        key: 'rzp_live_RTof1Rf1ru0HEt',
+        key: 'rzp_test_RU7Ssjpxs3pyhT',
         // amount not needed when order_id is provided
         currency: data.currency,
         name: 'Farmers App',
