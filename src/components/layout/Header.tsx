@@ -122,7 +122,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { LanguageSelector } from '@/components/ui/language-selector';
 import { useAuth } from '@/contexts/AuthContext';
-import { Sprout, User, LogOut } from 'lucide-react';
+import { Sprout, User, LogOut,ChevronDown } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -193,6 +193,32 @@ export const Header: React.FC = () => {
                     >
                         {t('Community')}
                     </Link>
+                    {/* MORE DROPDOWN MENU */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <button className="flex items-center gap-1 text-foreground/80 hover:text-foreground transition-colors">
+                                More
+                                <ChevronDown className="h-4 w-4" />
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="w-56 bg-popover z-50">
+                            <DropdownMenuItem asChild>
+                                <Link to="/resources" className="cursor-pointer">
+                                    📚 Resources (Schemes & Yojanas)
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link to="/weather" className="cursor-pointer">
+                                    🌤️ Real-Time Weather
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link to="/market-prices" className="cursor-pointer">
+                                    💰 Market Prices
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
 
                     
                     {/* ADMIN PANEL LINK: Only Visible to Admins */}

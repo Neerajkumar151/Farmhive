@@ -19,6 +19,9 @@ import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PaymentHistory from "./pages/PaymentHistory";
+import Resources from "./pages/Resources";
+import Weather from "./pages/Weather";
+import MarketPrices from "./pages/MarketPrices";
 
 // import ChatBot from "./components/ChatBot";
 import { AdminLayout } from "./pages/admin/AdminLayout";
@@ -64,6 +67,9 @@ const AppRoutes = () => {
 
 
       <Route path="/contact" element={<Contact />} />
+      <Route path="/resources" element={<Resources />} />
+      <Route path="/weather" element={<Weather />} />
+      <Route path="/market-prices" element={<MarketPrices />} />
       
       {/* Routes that require a user to be logged in (but not necessarily an admin) */}
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
