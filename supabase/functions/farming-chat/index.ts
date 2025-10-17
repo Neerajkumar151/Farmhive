@@ -79,8 +79,13 @@ ${paymentHistory.data.map((p: any) => `- ₹${p.amount} for ${p.type} (${p.payme
 ` : ''}
 ${toolBookings.data?.length ? `
 Tool Bookings:
-${toolBookings.data.map((b: any) => `- ${b.tools?.name}: ${b.start_date} to ${b.end_date} (${b.status}) - ₹${b.total_cost}`).join('\n')}
+${toolBookings.data
+  .slice()
+  .reverse()
+  .map((b)=>`- ${b.tools?.name}: ${b.start_date} to ${b.end_date} (${b.status}) - ₹${b.total_cost}`)
+  .join('\n')}
 ` : ''}
+
 ${warehouseBookings.data?.length ? `
 Warehouse Bookings:
 ${warehouseBookings.data.map((b: any) => `- ${b.warehouse_storage_options?.warehouses?.name}: ${b.space_sqft} sqft, ${b.start_date} to ${b.end_date} (${b.status}) - ₹${b.total_cost}`).join('\n')}
