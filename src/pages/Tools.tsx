@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layout } from '@/components/layout/Layout';
@@ -46,6 +45,7 @@ const Tools: React.FC = () => {
 
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Fetch tools from Supabase
   const fetchTools = async () => {
@@ -103,14 +103,12 @@ const Tools: React.FC = () => {
     setFilteredTools(filtered);
   };
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
   // Handle Rent/Booking button click
   const handleRentClick = (tool: Tool) => {
     if (!user) {
       toast({
-        title: 'Login Required',
-        description: 'Please log in to book a tool',
+        title: t('tools.loginRequiredTitle', { defaultValue: 'Login Required' }),
+        description: t('tools.loginRequiredDesc', { defaultValue: 'Please log in to book a tool' }),
         variant: 'destructive'
       });
       navigate('/auth');
@@ -126,23 +124,23 @@ const Tools: React.FC = () => {
   return (
     <Layout>
 
-        <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
 
-      {/* ⭐️ RE-ADD FLOATING BUTTON LOGIC HERE ⭐️ */}
-            {!isChatOpen && (
-                <Button
-                    onClick={() => setIsChatOpen(true)}
-                    className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
-                >
-                    <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
-                    <span className="text-white font-semibold text-2xl">AI</span>
-                </Button>
-            )}
+      {/* Floating AI button */}
+      {!isChatOpen && (
+        <Button
+          onClick={() => setIsChatOpen(true)}
+          className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
+        >
+          <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
+          <span className="text-white font-semibold text-2xl">AI</span>
+        </Button>
+      )}
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{t('tools.title')}</h1>
-          <p className="text-xl text-muted-foreground">{t('tools.subtitle')}</p>
+          <h1 className="text-4xl font-bold mb-4">{t('tools.title', { defaultValue: 'Available Tools' })}</h1>
+          <p className="text-xl text-muted-foreground">{t('tools.subtitle', { defaultValue: 'Find the right tool for your farming needs.' })}</p>
         </div>
 
         {/* Filters */}
@@ -150,7 +148,7 @@ const Tools: React.FC = () => {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search tools..."
+              placeholder={t('tools.searchPlaceholder', { defaultValue: 'Search tools...' })}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -159,13 +157,13 @@ const Tools: React.FC = () => {
 
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-64">
-              <label className="text-sm font-medium mb-2 block">Category</label>
+              <label className="text-sm font-medium mb-2 block">{t('tools.category', { defaultValue: 'Category' })}</label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All Categories" />
+                  <SelectValue placeholder={t('tools.allCategories', { defaultValue: 'All Categories' })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="all">{t('tools.allCategories', { defaultValue: 'All Categories' })}</SelectItem>
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
                       {category}
@@ -177,7 +175,7 @@ const Tools: React.FC = () => {
 
             <div className="flex-1">
               <label className="text-sm font-medium mb-2 block">
-                Price Range: {formatCurrency(priceRange[0])} - {formatCurrency(priceRange[1])} per day
+                {t('tools.priceRange', { defaultValue: 'Price Range' })}: {formatCurrency(priceRange[0])} - {formatCurrency(priceRange[1])} {t('tools.perDay', { defaultValue: 'per day' })}
               </label>
               <Slider
                 min={0}
@@ -206,24 +204,24 @@ const Tools: React.FC = () => {
                 <div className="flex items-start justify-between mb-2">
                   <CardTitle className="text-lg">{tool.name}</CardTitle>
                   <Badge variant={tool.availability ? 'default' : 'secondary'}>
-                    {tool.availability ? t('tools.availability') : t('tools.unavailable')}
+                    {tool.availability ? t('tools.availability', { defaultValue: 'Available' }) : t('tools.unavailable', { defaultValue: 'Unavailable' })}
                   </Badge>
                 </div>
                 <Badge variant="outline" className="mb-2">{tool.category}</Badge>
                 <CardDescription className="line-clamp-2 mb-4">
-                  {tool.description || 'No description available'}
+                  {tool.description || t('tools.noDescription', { defaultValue: 'No description available' })}
                 </CardDescription>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Daily:</span>
+                    <span className="text-muted-foreground">{t('tools.daily', { defaultValue: 'Daily' })}:</span>
                     <span className="font-semibold">{formatCurrency(tool.price_per_day)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monthly:</span>
+                    <span className="text-muted-foreground">{t('tools.monthly', { defaultValue: 'Monthly' })}:</span>
                     <span className="font-semibold">{formatCurrency(tool.price_per_month)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Seasonal:</span>
+                    <span className="text-muted-foreground">{t('tools.seasonal', { defaultValue: 'Seasonal' })}:</span>
                     <span className="font-semibold">{formatCurrency(tool.price_per_season)}</span>
                   </div>
                   {tool.location && (
@@ -239,7 +237,7 @@ const Tools: React.FC = () => {
                   disabled={!tool.availability}
                   onClick={() => handleRentClick(tool)}
                 >
-                  {t('tools.rentNow')}
+                  {t('tools.rentNow', { defaultValue: 'Rent Now' })}
                 </Button>
               </CardFooter>
             </Card>
@@ -248,7 +246,9 @@ const Tools: React.FC = () => {
 
         {filteredTools.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">No tools found matching your criteria</p>
+            <p className="text-muted-foreground text-lg">
+              {t('tools.noResults', { defaultValue: 'No tools found matching your criteria' })}
+            </p>
           </div>
         )}
       </div>

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, TrendingUp, TrendingDown, ExternalLink, RefreshCw, Info } from 'lucide-react';
+import { Search, TrendingUp, TrendingDown } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { useToast } from '@/hooks/use-toast';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useTranslation } from 'react-i18next';
+import i18n from '@/lib/i18n';
 
 interface MarketPrice {
   commodity: string;
@@ -63,6 +63,7 @@ const USD_TO_INR = 83;
 const API_KEY = import.meta.env.VITE_API_NINJAS_KEY;
 
 export default function MarketPrices() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedState, setSelectedState] = useState('All States');
   const [marketData, setMarketData] = useState<MarketPrice[]>([]);
@@ -73,6 +74,8 @@ export default function MarketPrices() {
   const { toast } = useToast();
 
   const markets = ['NYMEX', 'CME', 'ICE', 'LME'];
+
+
 
   const fetchMarketPrices = async () => {
     if (!API_KEY) return;
@@ -105,7 +108,7 @@ export default function MarketPrices() {
       }));
       setMarketData(pricesData.filter(Boolean) as MarketPrice[]);
       setLastUpdate(new Date());
-    } catch { toast({ title:'Failed to fetch market prices', variant:'destructive' }); }
+    } catch { toast({ title:i18n.t('Failed to fetch market prices'), variant:'destructive' }); }
     finally { setLoadingMarket(false); }
   };
 
@@ -139,7 +142,7 @@ export default function MarketPrices() {
         }
       }));
       setFertilizers(fetched);
-    } catch { toast({ title:'Failed to fetch fertilizer prices', variant:'destructive' }); }
+    } catch { toast({ title:i18n.t('Failed to fetch fertilizer prices'), variant:'destructive' }); }
     finally { setLoadingFert(false); }
   };
 
@@ -180,18 +183,22 @@ export default function MarketPrices() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent animate-text">
-              Real-Time Market & Fertilizer Prices
+              {i18n.t('Real-Time Market & Fertilizer Prices')}
             </h1>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-6">
-              Live commodity & fertilizer rates with stylish UI, auto-refresh every 5 minutes
+              {i18n.t('Live commodity & fertilizer rates with stylish UI, auto-refresh every 5 minutes')}
             </p>
-            {lastUpdate && <p className="mt-2 text-sm text-gray-500">Last updated: {lastUpdate.toLocaleString('en-IN')}</p>}
+            {lastUpdate && <p className="mt-2 text-sm text-gray-500">{i18n.t('Last updated')}: {lastUpdate.toLocaleString('en-IN')}</p>}
           </div>
 
           <Tabs defaultValue="crops" className="w-full">
             <TabsList className="grid w-full md:w-auto md:inline-grid grid-cols-2 mb-8 gap-2">
-              <TabsTrigger value="crops" className="bg-white/50 backdrop-blur-md shadow-lg hover:scale-105 transition-transform">Commodity Prices</TabsTrigger>
-              <TabsTrigger value="fertilizers" className="bg-white/50 backdrop-blur-md shadow-lg hover:scale-105 transition-transform">Fertilizers</TabsTrigger>
+              <TabsTrigger value="crops" className="bg-white/50 backdrop-blur-md shadow-lg hover:scale-105 transition-transform">
+                {i18n.t('Commodity Prices')}
+              </TabsTrigger>
+              <TabsTrigger value="fertilizers" className="bg-white/50 backdrop-blur-md shadow-lg hover:scale-105 transition-transform">
+                {i18n.t('Fertilizers')}
+              </TabsTrigger>
             </TabsList>
 
             {/* Commodity Tab */}
@@ -201,11 +208,13 @@ export default function MarketPrices() {
                   <div className="flex flex-col md:flex-row gap-4">
                     <div className="relative flex-1">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <Input placeholder="Search by commodity, variety, or market..." value={searchQuery} onChange={e=>setSearchQuery(e.target.value)} className="pl-10 bg-white/70 backdrop-blur-md" />
+                      <Input placeholder={i18n.t("Search by commodity, variety, or market...")} value={searchQuery} onChange={e=>setSearchQuery(e.target.value)} className="pl-10 bg-white/70 backdrop-blur-md" />
                     </div>
                     <Select value={selectedState} onValueChange={setSelectedState}>
-                      <SelectTrigger className="w-full md:w-[200px] bg-white/70 backdrop-blur-md"> <SelectValue placeholder="Select State" /> </SelectTrigger>
-                      <SelectContent>{states.map(state=><SelectItem key={state} value={state}>{state}</SelectItem>)}</SelectContent>
+                      <SelectTrigger className="w-full md:w-[200px] bg-white/70 backdrop-blur-md">
+                        <SelectValue placeholder={i18n.t("Select State")} />
+                      </SelectTrigger>
+                      <SelectContent>{states.map(state=><SelectItem key={state} value={state}>{i18n.t(state)}</SelectItem>)}</SelectContent>
                     </Select>
                   </div>
                 </CardContent>
@@ -213,23 +222,23 @@ export default function MarketPrices() {
 
               <Card className="bg-white/50 backdrop-blur-md shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
                 <CardHeader>
-                  <CardTitle className="text-xl font-bold text-purple-600">Live Commodity Rates</CardTitle>
-                  <CardDescription>Prices converted to ₹</CardDescription>
+                  <CardTitle className="text-xl font-bold text-purple-600">{i18n.t('Live Commodity Rates')}</CardTitle>
+                  <CardDescription>{i18n.t('Prices converted to ₹')}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {loadingMarket ? <p>Loading market prices...</p> : (
+                  {loadingMarket ? <p>{i18n.t('Loading market prices...')}</p> : (
                     <div className="rounded-md border overflow-x-auto">
                       <Table className="bg-white/60 backdrop-blur-md">
                         <TableHeader>
                           <TableRow>
-                            <TableHead>Commodity</TableHead>
-                            <TableHead>Variety</TableHead>
-                            <TableHead>Exchange</TableHead>
-                            <TableHead>State</TableHead>
-                            <TableHead className="text-right">Min Price</TableHead>
-                            <TableHead className="text-right">Max Price</TableHead>
-                            <TableHead className="text-right">Modal Price</TableHead>
-                            <TableHead className="text-center">Trend</TableHead>
+                            <TableHead>{i18n.t('Commodity')}</TableHead>
+                            <TableHead>{i18n.t('Variety')}</TableHead>
+                            <TableHead>{i18n.t('Exchange')}</TableHead>
+                            <TableHead>{i18n.t('State')}</TableHead>
+                            <TableHead className="text-right">{i18n.t('Min Price')}</TableHead>
+                            <TableHead className="text-right">{i18n.t('Max Price')}</TableHead>
+                            <TableHead className="text-right">{i18n.t('Modal Price')}</TableHead>
+                            <TableHead className="text-center">{i18n.t('Trend')}</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -242,9 +251,12 @@ export default function MarketPrices() {
                               <TableCell className="text-right">₹{item.min_price.toLocaleString('en-IN')}/{item.unit}</TableCell>
                               <TableCell className="text-right">₹{item.max_price.toLocaleString('en-IN')}/{item.unit}</TableCell>
                               <TableCell className="text-right font-semibold">₹{item.modal_price.toLocaleString('en-IN')}/{item.unit}</TableCell>
-                              <TableCell className="text-center flex items-center justify-center gap-1">{getTrendIcon(item.trend)}<span className={`text-xs ${getTrendColor(item.trend)}`}>{item.trend}</span></TableCell>
+                              <TableCell className="text-center flex items-center justify-center gap-1">
+                                {getTrendIcon(item.trend)}
+                                <span className={`text-xs ${getTrendColor(item.trend)}`}>{item.trend ? i18n.t(item.trend) : ''}</span>
+                              </TableCell>
                             </TableRow>
-                          )) : <TableRow><TableCell colSpan={8} className="text-center py-8 text-gray-400">No data found</TableCell></TableRow>}
+                          )) : <TableRow><TableCell colSpan={8} className="text-center py-8 text-gray-400">{i18n.t('No data found')}</TableCell></TableRow>}
                         </TableBody>
                       </Table>
                     </div>
@@ -256,15 +268,15 @@ export default function MarketPrices() {
             {/* Fertilizers Tab */}
             <TabsContent value="fertilizers" className="space-y-8">
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {loadingFert ? <p>Loading fertilizers...</p> : fertilizers.map((fert,index)=>(
+                {loadingFert ? <p>{i18n.t('Loading fertilizers...')}</p> : fertilizers.map((fert,index)=>(
                   <Card key={index} className="bg-white/50 backdrop-blur-md shadow-xl hover:shadow-2xl transition-shadow rounded-xl hover:scale-105">
                     <CardHeader>
-                      <CardTitle className="text-lg font-bold text-pink-600">{fert.name}</CardTitle>
-                      <CardDescription>{fert.unit}</CardDescription>
+                      <CardTitle className="text-lg font-bold text-pink-600">{i18n.t(fert.name)}</CardTitle>
+                      <CardDescription>{i18n.t(fert.unit)}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="text-3xl font-extrabold text-purple-600 mb-2">₹{fert.price.toLocaleString('en-IN')}</div>
-                      <Badge variant={fert.subsidy?'default':'secondary'}>{fert.subsidy?'Subsidized':'Non-Subsidized'}</Badge>
+                      <Badge variant={fert.subsidy?'default':'secondary'}>{fert.subsidy ? i18n.t('Subsidized') : i18n.t('Non-Subsidized')}</Badge>
                     </CardContent>
                   </Card>
                 ))}

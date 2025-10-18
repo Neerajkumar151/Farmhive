@@ -1,6 +1,9 @@
 import { Sprout, Shield, Lock, Eye, Cookie, Users, FileText, Mail, ChevronRight, Database, Server, Globe, UserCheck, Layout } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import Footer from '@/components/Footer';
+import i18n from '@/lib/i18n';
+import { useTranslation } from 'react-i18next';
+
 function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-green-50">
