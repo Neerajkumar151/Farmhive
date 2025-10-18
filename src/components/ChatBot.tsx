@@ -1,3 +1,5 @@
+// src/components/ChatBot.tsx
+
 import { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, Mic, MicOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,8 +15,15 @@ interface Message {
   content: string;
 }
 
-export const ChatBot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+// ⭐️ ADD PROPS INTERFACE ⭐️
+interface ChatBotProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+// ⭐️ UPDATE COMPONENT SIGNATURE TO ACCEPT PROPS ⭐️
+export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
+  // const [isOpen, setIsOpen] = useState(false); // REMOVED: State is now managed by the parent
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +44,7 @@ export const ChatBot = () => {
   useEffect(() => {
     const loadConversationHistory = async () => {
       if (!isOpen) return;
-      
+
       try {
         const { data: conversations } = await supabase
           .from('chat_conversations')
@@ -121,17 +130,17 @@ export const ChatBot = () => {
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
         const reader = new FileReader();
-        
+
         reader.onloadend = async () => {
           const base64Audio = (reader.result as string).split(',')[1];
-          
+
           try {
             const { data, error } = await supabase.functions.invoke('voice-to-text', {
               body: { audio: base64Audio }
             });
 
             if (error) throw error;
-            
+
             if (data.text) {
               await sendMessage(data.text);
             }
@@ -143,7 +152,7 @@ export const ChatBot = () => {
             });
           }
         };
-        
+
         reader.readAsDataURL(audioBlob);
         stream.getTracks().forEach(track => track.stop());
       };
@@ -168,18 +177,7 @@ export const ChatBot = () => {
 
   return (
     <>
-      {/* Floating Button */}
-    {!isOpen && (
-  <Button
-    onClick={() => setIsOpen(true)}
-    className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
-  >
-    <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
-    <span className="text-white font-semibold text-2xl">AI</span>
-  </Button>
-)}
-
-
+      {/* ⚠️ REMOVED: Floating Button Logic (now in Index.tsx) */}
 
       {/* Chat Window */}
       {isOpen && (
@@ -187,20 +185,21 @@ export const ChatBot = () => {
           {/* Header */}
           <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-primary-foreground p-4 rounded-t-lg flex items-center justify-between">
             <div className=" p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-white">FarmHive Assistant</div>
-                    <div className="text-xs text-green-100 flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse"></div>
-                      Online
-                    </div>
-                  </div>
+              <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                <Bot className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-bold text-white">FarmHive Assistant</div>
+                <div className="text-xs text-green-100 flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse"></div>
+                  Online
                 </div>
+              </div>
+            </div>
             <Button
               variant="ghost"
               size="icon"
+              // ⭐️ CLOSE BUTTON USES PROP SETTER ⭐️
               onClick={() => setIsOpen(false)}
               className="hover:bg-primary-foreground/20"
             >

@@ -14,6 +14,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import { ChatBot } from '@/components/ChatBot';
+import { Bot } from 'lucide-react';
 
 // --- Shared Types and Utilities ---
 interface StorageOption {
@@ -168,6 +170,8 @@ const Warehouse: React.FC = () => {
     setBookingDialogOpen(true);
   };
 
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   // --- Render Logic ---
 
   if (isLoading) {
@@ -196,6 +200,21 @@ const Warehouse: React.FC = () => {
 
   return (
     <Layout>
+
+
+       <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      
+            {/* ⭐️ RE-ADD FLOATING BUTTON LOGIC HERE ⭐️ */}
+                  {!isChatOpen && (
+                      <Button
+                          onClick={() => setIsChatOpen(true)}
+                          className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
+                      >
+                          <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
+                          <span className="text-white font-semibold text-2xl">AI</span>
+                      </Button>
+                  )}
+
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{t('warehouse.title', { defaultValue: 'Available Warehouses' })}</h1>

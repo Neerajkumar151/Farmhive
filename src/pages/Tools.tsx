@@ -9,12 +9,13 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Bot, Search } from 'lucide-react';
 import { ToolBookingDialog } from '@/components/booking/ToolBookingDialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import { ChatBot } from '@/components/ChatBot';
 
 interface Tool {
   id: string;
@@ -102,6 +103,8 @@ const Tools: React.FC = () => {
     setFilteredTools(filtered);
   };
 
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   // Handle Rent/Booking button click
   const handleRentClick = (tool: Tool) => {
     if (!user) {
@@ -122,6 +125,20 @@ const Tools: React.FC = () => {
 
   return (
     <Layout>
+
+        <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+
+      {/* ⭐️ RE-ADD FLOATING BUTTON LOGIC HERE ⭐️ */}
+            {!isChatOpen && (
+                <Button
+                    onClick={() => setIsChatOpen(true)}
+                    className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
+                >
+                    <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
+                    <span className="text-white font-semibold text-2xl">AI</span>
+                </Button>
+            )}
+
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{t('tools.title')}</h1>

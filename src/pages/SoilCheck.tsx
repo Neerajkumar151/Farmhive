@@ -13,6 +13,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { TestTube, Droplets, Leaf, Activity } from 'lucide-react';
 import Footer from '@/components/Footer';
+import { ChatBot } from '@/components/ChatBot';
+import { Bot } from 'lucide-react';
 
 const SoilCheck: React.FC = () => {
     const { t } = useTranslation();
@@ -36,6 +38,7 @@ const SoilCheck: React.FC = () => {
         contact_phone: '',
         notes: ''
     });
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -108,8 +111,26 @@ const SoilCheck: React.FC = () => {
         });
     };
 
+    const [isChatOpen, setIsChatOpen] = useState(false);
+
     return (
         <Layout>
+
+
+            <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+                  
+                        {/* ⭐️ RE-ADD FLOATING BUTTON LOGIC HERE ⭐️ */}
+                              {!isChatOpen && (
+                                  <Button
+                                      onClick={() => setIsChatOpen(true)}
+                                      className="fixed bottom-8 right-8 flex items-center justify-center gap-3 rounded-full shadow-lg bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 z-50 px-7 py-7"
+                                  >
+                                      <Bot className="text-white" style={{ width: '30px', height: '30px' }} />
+                                      <span className="text-white font-semibold text-2xl">AI</span>
+                                  </Button>
+                              )}
+
+
             <div className="container mx-auto px-4 py-8">
                 {/* Header Section */}
                 <div className="text-center mb-12">
