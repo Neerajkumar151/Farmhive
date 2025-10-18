@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     // Uses a dark gradient for a professional, striking look
-    <footer className="bg-gradient-to-br from-gray-900 via-green-900 to-gray-900 text-white pt-20 pb-10">
+    <footer className="bg-gradient-to-br from-gray-900 via-green-900 to-gray-900 text-white pt-5 pb-5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           
@@ -111,7 +111,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar / Copyright */}
-        <div className="border-t border-white/10 pt-8">
+        <div className="border-t border-white/10 pt-5">
     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-white font-medium ml-1">
             © 2025 FarmHive. All rights reserved By 

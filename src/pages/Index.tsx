@@ -1,4 +1,5 @@
 import React from 'react';
+import { Leaf , ChevronRight ,Smartphone,BarChart3,MessageSquareMore,Award,Target,Shield,CloudRain,CreditCard,Wrench,FlaskConical,TrendingUp} from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -106,123 +107,280 @@ const Index: React.FC = () => {
                 </div>
             </section>
 
-            {/* 2. RE-INTEGRATED SECTION: VALUE PROPOSITION / ABOUT FARMHIVE */}
-            <section className="py-20 bg-card">
-                <div className="container mx-auto px-4 max-w-5xl">
-                    <div className="text-center mb-12">
-                        <h2 className=" h-16 text-4xl font-bold mb-0 text-transparent bg-clip-text bg-gradient-to-br from-green-600 to-emerald-700">
-                            {t('valueProp.section_title')}
-                        </h2>
-                        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                            {t('valueProp.section_subtitle')}
-                        </p>
-                    </div>
 
-                    <div className="grid md:grid-cols-3 gap-10 text-center">
-                        {/* Value Prop 1: Resource Sharing */}
-                        <div className="p-6 bg-secondary/30 rounded-lg shadow-medium">
-                            <Tractor className="h-10 w-10 text-primary mx-auto mb-4" />
-                            <h3 className="text-2xl font-semibold mb-2 text-foreground">{t('valueProp.resource_sharing_title')}</h3>
-                            <p className="text-muted-foreground">
-                                {t('valueProp.resource_sharing_text')}
-                            </p>
-                        </div>
-
-                        {/* Value Prop 2: Data & Intelligence */}
-                        <div className="p-6 bg-secondary/30 rounded-lg shadow-medium">
-                            <TestTube className="h-10 w-10 text-primary mx-auto mb-4" />
-                            <h3 className="text-2xl font-semibold mb-2 text-foreground">{t('valueProp.soil_insights_title')}</h3>
-                            <p className="text-muted-foreground">
-                                {t('valueProp.soil_insights_text')}
-                            </p>
-                        </div>
-
-                        {/* Value Prop 3: Community */}
-                        <div className="p-6 bg-secondary/30 rounded-lg shadow-medium">
-                            <Users className="h-10 w-10 text-primary mx-auto mb-4" />
-                            <h3 className="text-2xl font-semibold mb-2 text-foreground">{t('valueProp.community_title')}</h3>
-                            <p className="text-muted-foreground">
-                                {t('valueProp.community_text')}
-                            </p>
-                        </div>
-                    </div>
+            <section className="pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 via-amber-50/20 to-green-50/30 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto relative">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8 animate-fade-in">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg">
+                <Leaf className="w-4 h-4" />
+                Smart Farming Revolution
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">
+                Growing the Future with <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">Smart Agriculture</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
+                Join thousands of farmers transforming their operations with AI-powered insights, modern tools, and real-time market intelligence.
+              </p>
+              <div className="flex items-center gap-8 pt-2">
+                <div>
+                  <div className="text-4xl font-bold text-green-600">10K+</div>
+                  <div className="text-gray-600 font-medium">Active Farmers</div>
                 </div>
-            </section>
+                <div>
+                  <div className="text-4xl font-bold text-amber-600">500+</div>
+                  <div className="text-gray-600 font-medium">Tools Available</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-emerald-600">98%</div>
+                  <div className="text-gray-600 font-medium">Satisfaction</div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-4 pt-4">
+                <button className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-5 rounded-full hover:from-green-700 hover:to-emerald-700 transition-all hover:shadow-2xl hover:scale-105 font-bold flex items-center gap-2 text-lg">
+                  Start Free Trial <ChevronRight className="w-5 h-5" />
+                </button>
+                <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">
+                  Watch Demo
+                </button>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="relative">
+                <div className="bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 rounded-3xl h-[500px] shadow-2xl overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Tractor className="w-48 h-48 text-white/30" strokeWidth={1} />
+                  </div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="bg-white/95 backdrop-blur-sm p-4 rounded-xl">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Smartphone className="w-10 h-10 text-green-600" />
+                          <div>
+                            <div className="font-bold text-gray-900">Modern Platform</div>
+                            <div className="text-sm text-gray-600">Access from anywhere</div>
+                          </div>
+                        </div>
+                        <BarChart3 className="w-8 h-8 text-amber-500" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-amber-400 to-orange-500 p-6 rounded-2xl shadow-2xl animate-bounce-slow">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white">AI</div>
+                    <div className="text-xs text-white/90 font-semibold">Powered</div>
+                  </div>
+                </div>
+                <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-2xl hover:scale-110 transition-transform">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-gradient-to-br from-green-400 to-emerald-500 p-3 rounded-full">
+                      <MessageSquareMore className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">24/7 AI Assistant</p>
+                      <p className="text-xs text-gray-500">Instant Support</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* About Section */}
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
+            <div>
+              <div className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                Our Story
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Revolutionizing Agriculture Through Innovation</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                FarmHive was born from a simple vision: to bridge the gap between traditional farming wisdom and modern technology. We understand the daily challenges farmers face, from unpredictable weather to fluctuating market prices.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Our platform combines cutting-edge AI, real-time data analytics, and a deep understanding of agricultural practices to deliver solutions that truly make a difference. We're not just building software; we're cultivating a community of forward-thinking farmers.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="bg-green-100 p-2 rounded-lg mt-1">
+                    <Shield className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Trusted & Secure</h4>
+                    <p className="text-gray-600">Bank-grade security protecting your data and transactions</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="bg-amber-100 p-2 rounded-lg mt-1">
+                    <Users className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-1">Community-First</h4>
+                    <p className="text-gray-600">Built with farmers, for farmers, supporting local communities</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl h-96 shadow-2xl overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Sprout className="w-40 h-40 text-white/30" strokeWidth={1} />
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-white/95 backdrop-blur-sm p-4 rounded-xl">
+                    <div className="text-2xl font-bold text-gray-900 mb-1">Sustainable Growth</div>
+                    <p className="text-sm text-gray-600">Empowering 10,000+ farmers across India</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -top-6 -right-6 bg-white p-4 rounded-xl shadow-xl">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600">2025</div>
+                  <div className="text-xs text-gray-600 font-medium">Founded</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-xl transition-all hover:-translate-y-2 border border-green-100">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Farmer-Centric</h3>
+              <p className="text-gray-600">Built by understanding real challenges faced by farmers in their daily operations</p>
+            </div>
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 hover:shadow-xl transition-all hover:-translate-y-2 border border-amber-100">
+              <div className="bg-gradient-to-br from-amber-500 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Target className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Technology-Driven</h3>
+              <p className="text-gray-600">Leveraging AI and modern tools to provide actionable insights and solutions</p>
+            </div>
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-xl transition-all hover:-translate-y-2 border border-green-100">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-700 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Trusted Partner</h3>
+              <p className="text-gray-600">Supporting sustainable and profitable farming practices across communities</p>
+            </div>
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-xl transition-all hover:-translate-y-2 border border-blue-100">
+              <div className="bg-gradient-to-br from-blue-500 to-cyan-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Leaf className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Eco-Friendly</h3>
+              <p className="text-gray-600">Promoting sustainable practices that protect our environment for future generations</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
             {/* Features Section */}
-            <section className="py-20 bg-gradient-earth">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold mb-4 text-foreground">
-                            {t('index.features_title')} 
-                        </h2>
-                        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                            {t('index.features_subtitle')} 
-                        </p>
-                    </div>
+      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Comprehensive Features</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Everything you need to modernize your farming operations
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Tool Rentals */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-orange-500 to-amber-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <Wrench className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Tool Rentals</h3>
+              <p className="text-gray-600 mb-4">Book agricultural tools and machinery for sowing, harvesting, and all farm operations</p>
+              <Link to="/tools"><button  className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group " >
+                Explore <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                        {features.map((feature, index) => (
-                            <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-1 bg-card/50 backdrop-blur">
-                                
-                                <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                                    <img src={feature.image} alt={t(feature.titleKey)} className="w-full h-48 object-cover group-hover:scale-105 transition-transform"/>
-                                </CardHeader>
-                                <CardContent className="text-center">
-                                    <div className="mx-auto mb-4 p-4 bg-primary/10 rounded-full w-fit group-hover:bg-primary/20 transition-colors">
-                                        <feature.icon className="h-8 w-8 text-primary" />
-                                    </div>
-                                    <CardTitle className="text-xl font-semibold">
-                                        {t(feature.titleKey)}
-                                    </CardTitle>
-                                    <CardDescription className="mb-6 text-base">
-                                        {t(feature.descriptionKey)}
-                                    </CardDescription>
-                                    <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                        <Link to={feature.link}>
-                                            {t('index.explore')} 
-                                            <ArrowRight className="ml-2 h-4 w-4" />
-                                        </Link>
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            {/* Warehouse Booking */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <Warehouse className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Warehouse Storage</h3>
+              <p className="text-gray-600 mb-4">Find and book warehouse space with details on capacity and storage conditions</p>
+              <Link to="warehouse"><button className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group">
+                Book Now <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
 
-            {/* Stats Section */}
-            <section className="py-20 bg-background">
-                <div className="container mx-auto px-4">
-                    <div className="grid md:grid-cols-3 gap-8 text-center">
-                        {/* Stat 1: Active Farmers */}
-                        <div className="group">
-                            <div className="mb-4 p-4 bg-accent/20 rounded-full w-fit mx-auto group-hover:bg-accent/30 transition-colors">
-                                <Users className="h-12 w-12 text-accent-foreground" />
-                            </div>
-                            <h3 className="text-3xl font-bold text-foreground mb-2">1000+</h3>
-                            <p className="text-muted-foreground">{t('index.active_farmers')}</p> 
-                        </div>
-                        {/* Stat 2: Tools Available */}
-                        <div className="group">
-                            <div className="mb-4 p-4 bg-primary/20 rounded-full w-fit mx-auto group-hover:bg-primary/30 transition-colors">
-                                <Tractor className="h-12 w-12 text-primary" />
-                            </div>
-                            <h3 className="text-3xl font-bold text-foreground mb-2">500+</h3>
-                            <p className="text-muted-foreground">{t('index.tools_available')}</p> 
-                        </div>
-                        {/* Stat 3: Success Rate */}
-                        <div className="group">
-                            <div className="mb-4 p-4 bg-secondary/40 rounded-full w-fit mx-auto group-hover:bg-secondary/50 transition-colors">
-                                <Sprout className="h-12 w-12 text-secondary-foreground" />
-                            </div>
-                            <h3 className="text-3xl font-bold text-foreground mb-2">95%</h3>
-                            <p className="text-muted-foreground">{t('index.success_rate')}</p> 
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/* Soil Testing */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <FlaskConical className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Soil Analysis</h3>
+              <p className="text-gray-600 mb-4">Log soil checks, get NPK/pH readings, and receive fertilizer recommendations</p>
+              <Link to="soil-check"><button className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group">
+                Get Analysis <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
+
+            {/* Market Info */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-purple-500 to-purple-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <TrendingUp className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Information</h3>
+              <p className="text-gray-600 mb-4">View local Mandi prices and crop demand insights in real-time</p>
+              <Link to="market-prices"><button className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group">
+                View Prices <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
+
+            {/* Finance */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-yellow-500 to-amber-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <CreditCard className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Finance & Schemes</h3>
+              <p className="text-gray-600 mb-4">Guidance on credit cards, insurance, subsidies, and government schemes</p>
+              <Link to="resources"><button className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group">
+                Learn More <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
+
+            {/* Weather */}
+            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100">
+              <div className="bg-gradient-to-br from-cyan-500 to-blue-600 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <CloudRain className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Weather & Advisory</h3>
+              <p className="text-gray-600 mb-4">Hyper-local weather updates, pest alerts, and irrigation guidance</p>
+              <Link to="weather"><button className="text-green-600 font-semibold hover:text-green-700 flex items-center gap-1 group">
+                Get Updates <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button></Link>
+            </div>
+
+            {/* AI Assistant - Span 2 columns on larger screens */}
+            <div className="bg-gradient-to-br from-green-600 to-emerald-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 lg:col-span-2">
+              <div className="bg-white/20 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                <MessageSquareMore className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">AI Assistance</h3>
+              <p className="text-green-50 mb-4">Smart chatbot providing step-by-step guidance, answering queries, and assisting with administrative questions 24/7</p>
+              <button className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold hover:bg-green-50 transition-all inline-flex items-center gap-2 hover:shadow-lg">
+                Chat Now <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
             
             {/* 3. RE-INTEGRATED SECTION: Testimonials */}
             <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -267,6 +425,30 @@ const Index: React.FC = () => {
                         ))}
                     </div>
                 </div>
+                <div className="mt-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            <div className="relative z-10">
+              <div className="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                  <div className="text-5xl font-bold text-white mb-2">10,000+</div>
+                  <div className="text-green-100 font-medium">Active Farmers</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold text-white mb-2">50M+</div>
+                  <div className="text-green-100 font-medium">Hectares Managed</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold text-white mb-2">98%</div>
+                  <div className="text-green-100 font-medium">Satisfaction Rate</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold text-white mb-2">24/7</div>
+                  <div className="text-green-100 font-medium">AI Support</div>
+                </div>
+              </div>
+            </div>
+          </div>
             </section>
             
             {/* 4. RE-INTEGRATED SECTION: Marquee and Footer */}
