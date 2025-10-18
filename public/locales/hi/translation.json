@@ -568,5 +568,26 @@
   "We typically respond to privacy inquiries within 48 hours during business days. For urgent security concerns, please mark your email as \"Urgent\" in the subject line.": "हम आम तौर पर व्यावसायिक दिनों के दौरान 48 घंटों के भीतर गोपनीयता पूछताछ का जवाब देते हैं। तत्काल सुरक्षा चिंताओं के लिए, कृपया अपने ईमेल को विषय पंक्ति में \"Urgent\" के रूप में चिह्नित करें।",
   "Policy Updates": "नीति अपडेट",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "हम अपनी प्रथाओं में परिवर्तन या कानूनी, नियामक या परिचालन कारणों को दर्शाने के लिए समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं। जब हम महत्वपूर्ण परिवर्तन करते हैं, तो हम आपको ईमेल के माध्यम से या हमारे प्लेटफॉर्म पर एक प्रमुख सूचना के माध्यम से सूचित करेंगे।",
-  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "हम आपको अपनी जानकारी की सुरक्षा के बारे में सूचित रहने के लिए समय-समय पर इस गोपनीयता नीति की समीक्षा करने के लिए प्रोत्साहित करते हैं।"
+  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "हम आपको अपनी जानकारी की सुरक्षा के बारे में सूचित रहने के लिए समय-समय पर इस गोपनीयता नीति की समीक्षा करने के लिए प्रोत्साहित करते हैं।",
+
+  "auth": {
+    "signIn": "साइन इन करें",
+    "signUp": "साइन अप करें",
+    "createAccount": "खाता बनाएं",
+    "createAccountDescription": "अपना KrishiSanjivni खाता बनाएं",
+    "welcomeBackDescription": "KrishiSanjivni में आपका स्वागत है",
+    "fullName": "पूरा नाम",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "invalidEmail": "अमान्य ईमेल पता",
+    "passwordMinLength": "पासवर्ड कम से कम 6 वर्ण का होना चाहिए",
+    "fullNameMinLength": "पूरा नाम कम से कम 2 वर्ण का होना चाहिए",
+    "passwordsDontMatch": "पासवर्ड मेल नहीं खाते",
+    "alreadyHaveAccount": "क्या आपके पास पहले से खाता है?",
+    "dontHaveAccount": "खाता नहीं है?"
+  },
+  "common2": {
+    "loading": "लोड हो रहा है..."
+  }
 }

@@ -568,5 +568,26 @@
   "We typically respond to privacy inquiries within 48 hours during business days. For urgent security concerns, please mark your email as \"Urgent\" in the subject line.": "আমরা সাধারণত ব্যবসার দিনগুলিতে 48 ঘন্টার মধ্যে গোপনীয়তার অনুসন্ধানে সাড়া দিই। জরুরি নিরাপত্তা উদ্বেগের জন্য, অনুগ্রহ করে আপনার ইমেলটিকে বিষয় লাইনে \"Urgent\" হিসাবে চিহ্নিত করুন।",
   "Policy Updates": "নীতি আপডেট",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "আমাদের অনুশীলনগুলিতে পরিবর্তনগুলি প্রতিফলিত করতে বা আইনি, নিয়ন্ত্রক বা অপারেশনাল কারণে আমরা সময়ে সময়ে এই গোপনীয়তা নীতি আপডেট করতে পারি। যখন আমরা গুরুত্বপূর্ণ পরিবর্তন করি, আমরা ইমেলের মাধ্যমে বা আমাদের প্ল্যাটফর্মে একটি বিশিষ্ট নোটিশের মাধ্যমে আপনাকে অবহিত করব।",
-  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "আমরা আপনাকে আপনার তথ্য কীভাবে সুরক্ষিত রাখছি সে সম্পর্কে অবগত থাকার জন্য পর্যায়ক্রমে এই গোপনীয়তা নীতি পর্যালোচনা করতে উত্সাহিত করি।"
+  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "আমরা আপনাকে আপনার তথ্য কীভাবে সুরক্ষিত রাখছি সে সম্পর্কে অবগত থাকার জন্য পর্যায়ক্রমে এই গোপনীয়তা নীতি পর্যালোচনা করতে উত্সাহিত করি।",
+
+  "auth": {
+    "signIn": "সাইন ইন করুন",
+    "signUp": "সাইন আপ করুন",
+    "createAccount": "অ্যাকাউন্ট তৈরি করুন",
+    "createAccountDescription": "আপনার KrishiSanjivni অ্যাকাউন্ট তৈরি করুন",
+    "welcomeBackDescription": "KrishiSanjivni-তে আবার স্বাগতম",
+    "fullName": "পূর্ণ নাম",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+    "invalidEmail": "অবৈধ ইমেইল ঠিকানা",
+    "passwordMinLength": "পাসওয়ার্ড কমপক্ষে 6 অক্ষরের হতে হবে",
+    "fullNameMinLength": "পূর্ণ নাম কমপক্ষে 2 অক্ষরের হতে হবে",
+    "passwordsDontMatch": "পাসওয়ার্ড মেলে না",
+    "alreadyHaveAccount": "আগেই একটি অ্যাকাউন্ট আছে?",
+    "dontHaveAccount": "অ্যাকাউন্ট নেই?"
+  },
+  "common2": {
+    "loading": "লোড হচ্ছে..."
+  }
 }

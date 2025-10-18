@@ -617,6 +617,26 @@
   "We typically respond to privacy inquiries within 48 hours during business days. For urgent security concerns, please mark your email as \"Urgent\" in the subject line.": "We typically respond to privacy inquiries within 48 hours during business days. For urgent security concerns, please mark your email as \"Urgent\" in the subject line.",
   "Policy Updates": "Policy Updates",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.",
-  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information."
+  "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.",
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "createAccount": "Create Account",
+    "createAccountDescription": "Create your KrishiSanjivni account",
+    "welcomeBackDescription": "Welcome back to KrishiSanjivni",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "invalidEmail": "Invalid email address",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "fullNameMinLength": "Full name must be at least 2 characters",
+    "passwordsDontMatch": "Passwords don't match",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?"
+  },
+  "common2": {
+    "loading": "Loading..."
+  }
 
 }
