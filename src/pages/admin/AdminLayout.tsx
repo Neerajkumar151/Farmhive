@@ -32,7 +32,7 @@ export const AdminLayout: React.FC = () => {
         <div className="p-6 border-b">
           <Link to="/" className="flex items-center gap-2 font-bold text-xl">
             <Sprout className="h-8 w-8 text-primary" />
-            <span className="bg-gradient-hero bg-clip-text text-transparent">FarmHive</span>
+            <span className="bg-gradient-hero bg-clip-text text-transparent">KrishiSanjivni</span>
           </Link>
           <p className="text-sm text-muted-foreground mt-1">Admin Panel</p>
         </div>

@@ -152,9 +152,9 @@ const Index: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex flex-wrap gap-4 pt-4">
-                                <button className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-5 rounded-full hover:from-green-700 hover:to-emerald-700 transition-all hover:shadow-2xl hover:scale-105 font-bold flex items-center gap-2 text-lg">
-                                    Start Free Trial <ChevronRight className="w-5 h-5" />
-                                </button>
+                                <Link to="tools"><button className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-5 rounded-full hover:from-green-700 hover:to-emerald-700 transition-all hover:shadow-2xl hover:scale-105 font-bold flex items-center gap-2 text-lg">
+                                    Explore Now <ChevronRight className="w-5 h-5" />
+                                </button></Link>
                                 <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">
                                     Watch Demo
                                 </button>
@@ -216,7 +216,7 @@ const Index: React.FC = () => {
                             </div>
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Revolutionizing Agriculture Through Innovation</h2>
                             <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                                FarmHive was born from a simple vision: to bridge the gap between traditional farming wisdom and modern technology. We understand the daily challenges farmers face, from unpredictable weather to fluctuating market prices.
+                                KrishiSanjivni was born from a simple vision: to bridge the gap between traditional farming wisdom and modern technology. We understand the daily challenges farmers face, from unpredictable weather to fluctuating market prices.
                             </p>
                             <p className="text-lg text-gray-600 leading-relaxed mb-6">
                                 Our platform combines cutting-edge AI, real-time data analytics, and a deep understanding of agricultural practices to deliver solutions that truly make a difference. We're not just building software; we're cultivating a community of forward-thinking farmers.

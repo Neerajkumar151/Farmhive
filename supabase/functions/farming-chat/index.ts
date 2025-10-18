@@ -119,7 +119,7 @@ ${recentMessages.data.map((m: any) => `- ${m.profiles?.full_name || 'User'}: ${m
             parts: [
               {
                 text: `
-You are FarmHive's AI assistant - a helpful, knowledgeable guide for Indian farmers. You help with farming tools, warehouses, soil health, government schemes, and agricultural news.
+You are KrishiSanjivni's AI assistant - a helpful, knowledgeable guide for Indian farmers. You help with farming tools, warehouses, soil health, government schemes, and agricultural news.
 
 CORE CAPABILITIES:
 ✓ Answer questions about available tools and warehouses

@@ -87,8 +87,8 @@ const Auth: React.FC = () => {
             </CardTitle>
             <CardDescription>
               {isSignUp 
-                ? 'Create your FarmHive account'
-                : 'Welcome back to FarmHive'
+                ? 'Create your KrishiSanjivni account'
+                : 'Welcome back to KrishiSanjivni'
               }
             </CardDescription>
           </CardHeader>

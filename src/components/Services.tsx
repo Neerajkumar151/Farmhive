@@ -6,7 +6,7 @@ const services = [
     icon: Wrench,
     title: 'Smart Farming Tools',
     description:
-      'Rent or book modern farming tools and machines easily. From tractors to seeders, access affordable equipment anytime through FarmHive.',
+      'Rent or book modern farming tools and machines easily. From tractors to seeders, access affordable equipment anytime through KrishiSanjivni.',
     color: 'from-green-500 to-lime-600',
   },
   {
@@ -32,7 +32,7 @@ const services = [
   },
   {
     icon: Bot,
-    title: 'FarmHive AI Chatbot',
+    title: 'KrishiSanjivni AI Chatbot',
     description:
       'Get 24/7 farming assistance — weather updates, government scheme information, loan eligibility, and expert advice right from your chatbot.',
     color: 'from-emerald-500 to-green-700',
@@ -41,7 +41,7 @@ const services = [
     icon: Users,
     title: 'Farmer Community & Support',
     description:
-      'Join a growing community of farmers, share experiences, and get help from agricultural experts and peers across the FarmHive network.',
+      'Join a growing community of farmers, share experiences, and get help from agricultural experts and peers across the KrishiSanjivni network.',
     color: 'from-orange-500 to-yellow-600',
   },
 ];
@@ -55,7 +55,7 @@ export default function Services() {
             Empowering Farmers with Smart Solutions
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            FarmHive simplifies every aspect of modern agriculture — from soil health to storage and AI assistance.
+            KrishiSanjivni simplifies every aspect of modern agriculture — from soil health to storage and AI assistance.
           </p>
         </div>
 

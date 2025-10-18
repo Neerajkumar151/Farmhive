@@ -12,10 +12,10 @@ export const Footer: React.FC = () => {
         <div className="space-y-4">
           <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
             <Sprout className="h-6 w-6 text-primary" />
-            <span className="bg-gradient-hero bg-clip-text text-transparent">FarmHive</span>
+            <span className="bg-gradient-hero bg-clip-text text-transparent">KrishiSanjivni</span>
           </Link>
           <p className="text-sm text-muted-foreground">
-            FarmHive is your trusted platform for renting agricultural tools, managing warehouses, and checking soil health.
+            KrishiSanjivni is your trusted platform for renting agricultural tools, managing warehouses, and checking soil health.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="border-t mt-8 py-4 text-center text-sm text-muted-foreground">
-        &copy; {new Date().getFullYear()} FarmHive. All rights reserved.
+        &copy; {new Date().getFullYear()} KrishiSanjivni. All rights reserved.
       </div>
     </footer>
   );

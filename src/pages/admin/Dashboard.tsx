@@ -64,7 +64,7 @@ export const AdminDashboard: React.FC = () => {
     <div className="space-y-8">
       <div>
         <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your FarmHive platform</p>
+        <p className="text-muted-foreground">Overview of your KrishiSanjivni platform</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

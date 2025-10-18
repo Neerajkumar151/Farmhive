@@ -15,7 +15,7 @@ export default function Navigation() {
               <Sprout className="w-7 h-7 text-white" />
             </div>
             <div>
-              <div className="font-bold text-xl text-gray-900">FarmHive</div>
+              <div className="font-bold text-xl text-gray-900">KrishiSanjivni</div>
               <div className="text-xs text-green-600 font-medium">Growing Together</div>
             </div>
           </div>

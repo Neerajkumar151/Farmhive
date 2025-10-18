@@ -22,7 +22,7 @@ export default function Footer() {
                 <Sprout className="w-7 h-7 text-white" />
               </div>
               <div>
-                <div className="font-bold text-xl">FarmHive</div>
+                <div className="font-bold text-xl">KrishiSanjivni</div>
                 <div className="text-xs text-green-400">Growing Together</div>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-5">
     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-white font-medium ml-1">
-            © 2025 FarmHive. All rights reserved By 
+            © 2025 KrishiSanjivni. All rights reserved By 
             {/* CORRECTED: Use <span> for inline styling */}
             <span className="text-white font-medium ml-1">Neeraj Kumar</span>.
         </p>

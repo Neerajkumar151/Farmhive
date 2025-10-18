@@ -128,7 +128,7 @@ export default function Contact() {
                     <div>
                       <div className="font-semibold mb-1">Email</div>
                       <div className="text-green-100">thakurneerajkumar17@gmail.com</div>
-                      <div className="text-green-100">info@farmhiveform.com</div>
+                      <div className="text-green-100">info@KrishiSanjivniform.com</div>
                     </div>
                   </div>
 

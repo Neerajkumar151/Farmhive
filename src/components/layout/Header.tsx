@@ -26,7 +26,7 @@
 //         <Link to="/" className="flex items-center gap-2 font-bold text-xl">
 //           <Sprout className="h-8 w-8 text-primary" />
 //           <span className="bg-gradient-hero bg-clip-text text-transparent">
-//             FarmHive
+//             KrishiSanjivni
 //           </span>
 //         </Link>
 
@@ -153,7 +153,7 @@ export const Header: React.FC = () => {
                                   <Sprout className="w-7 h-7 text-white" />
                                 </div>
                                 <div>
-                                  <div className="font-bold text-xl text-gray-900">FarmHive</div>
+                                  <div className="font-bold text-xl text-gray-900">KrishiSanjivni</div>
                                   <div className="text-xs text-green-600 font-medium">Growing Together</div>
                                 </div>
                               </div>

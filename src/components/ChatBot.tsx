@@ -189,7 +189,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-bold text-white">FarmHive Assistant</div>
+                <div className="font-bold text-white">KrishiSanjivni Assistant</div>
                 <div className="text-xs text-green-100 flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse"></div>
                   Online
@@ -211,7 +211,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
           <ScrollArea className="flex-1 p-4" ref={scrollRef}>
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground py-8">
-                <p className="text-sm">Hi! I'm your FarmHive assistant.</p>
+                <p className="text-sm">Hi! I'm your KrishiSanjivni assistant.</p>
                 <p className="text-xs mt-2">Ask me about farming tools, warehouses, soil analysis, or any farming questions!</p>
               </div>
             )}

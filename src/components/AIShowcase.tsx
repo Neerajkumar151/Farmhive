@@ -79,7 +79,7 @@ export default function AIShowcase({ setChatOpen }: AIShowcaseProps) {
                                         <Bot className="w-6 h-6 text-white" />
                                     </div>
                                     <div>
-                                        <div className="font-bold text-white">FarmHive Assistant</div>
+                                        <div className="font-bold text-white">KrishiSanjivni Assistant</div>
                                         <div className="text-xs text-green-100 flex items-center gap-1">
                                             <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse"></div>
                                             Online

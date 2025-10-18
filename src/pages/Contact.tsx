@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80')] opacity-20 bg-cover bg-center"></div>
         <div className="container relative mx-auto text-center px-6 max-w-3xl">
           <h1 className="text-5xl font-bold text-foreground mb-4">
-            {t("contact.title", "Get in Touch with FarmHive")}
+            {t("contact.title", "Get in Touch with KrishiSanjivni")}
           </h1>
           <p className="text-lg text-muted-foreground mb-8">
             {t("contact.subtitle", "We’re here to help you grow your success with technology and innovation.")}
@@ -183,7 +183,7 @@ const Contact: React.FC = () => {
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <iframe
-            title="FarmHive Location"
+            title="KrishiSanjivni Location"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.387747729072!2d77.38970627508947!3d28.62773478422248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce59f6e2c07b5%3A0xb2e2a356b29d0487!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1697101017083!5m2!1sen!2sin"
             width="100%"
             height="400"
