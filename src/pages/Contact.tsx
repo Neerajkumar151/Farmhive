@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -42,7 +41,7 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.message.trim()) {
-      toast.error("Message cannot be empty!"); // ✅ error toast
+      toast.error(t("toast.messageEmpty", "Message cannot be empty!")); // ✅ Wrapped
       return;
     }
     setLoading(true);
@@ -53,9 +52,9 @@ const Contact: React.FC = () => {
     }]);
     setLoading(false);
     if (error) {
-      toast.error("Failed to submit: " + error.message); // ✅ error toast
+      toast.error(t("toast.submitFailed", "Failed to submit: ") + error.message); // ✅ Wrapped
     } else {
-      toast.success("Message submitted successfully!"); // ✅ success toast
+      toast.success(t("toast.submitSuccess", "Message submitted successfully!")); // ✅ Wrapped
       setFormData({ ...formData, message: "" });
     }
   };
@@ -163,7 +162,7 @@ const Contact: React.FC = () => {
                   <textarea
                     name="message"
                     rows={5}
-                    placeholder="Write your message..."
+                    placeholder={t("form.placeholder", "Write your message...")} // ✅ Wrapped
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -183,7 +182,7 @@ const Contact: React.FC = () => {
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <iframe
-            title="KrishiSanjivni Location"
+            title={t("contact.mapTitle", "KrishiSanjivni Location")} // ✅ Wrapped
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.387747729072!2d77.38970627508947!3d28.62773478422248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce59f6e2c07b5%3A0xb2e2a356b29d0487!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1697101017083!5m2!1sen!2sin"
             width="100%"
             height="400"
@@ -203,4 +202,3 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
-

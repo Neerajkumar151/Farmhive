@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { Download, Receipt } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Payment {
   id: string;
@@ -22,6 +23,7 @@ interface Payment {
 }
 
 const PaymentHistory: React.FC = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -45,7 +47,7 @@ const PaymentHistory: React.FC = () => {
       setPayments(data || []);
     } catch (error: any) {
       toast({
-        title: 'Error',
+        title: t('payment.errorTitle'),
         description: error.message,
         variant: 'destructive'
       });
@@ -55,12 +57,11 @@ const PaymentHistory: React.FC = () => {
   };
 
   const downloadInvoice = (payment: Payment) => {
-    // Create a simple invoice HTML
     const invoiceHTML = `
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Invoice - ${payment.transaction_id}</title>
+          <title>${t('payment.invoiceTitle')} - ${payment.transaction_id}</title>
           <style>
             body { font-family: Arial, sans-serif; padding: 40px; }
             .invoice-box { max-width: 800px; margin: auto; border: 1px solid #eee; padding: 30px; }
@@ -73,26 +74,25 @@ const PaymentHistory: React.FC = () => {
         <body>
           <div class="invoice-box">
             <div class="header">
-              <h1>Payment Invoice</h1>
-              <p>Farmers App</p>
+              <h1>${t('payment.invoiceTitle')}</h1>
+              <p>${t('payment.appName')}</p>
             </div>
             <div class="details">
-              <p><strong>Transaction ID:</strong> ${payment.transaction_id}</p>
-              <p><strong>Razorpay Payment ID:</strong> ${payment.razorpay_payment_id}</p>
-              <p><strong>Razorpay Order ID:</strong> ${payment.razorpay_order_id}</p>
-              <p><strong>Type:</strong> ${payment.type}</p>
-              <p><strong>Date:</strong> ${format(new Date(payment.payment_date), 'PPP')}</p>
-              <p><strong>Status:</strong> ${payment.payment_status}</p>
+              <p><strong>${t('payment.transactionId')}:</strong> ${payment.transaction_id}</p>
+              <p><strong>${t('payment.razorpayPaymentId')}:</strong> ${payment.razorpay_payment_id}</p>
+              <p><strong>${t('payment.razorpayOrderId')}:</strong> ${payment.razorpay_order_id}</p>
+              <p><strong>${t('payment.type')}:</strong> ${payment.type}</p>
+              <p><strong>${t('payment.date')}:</strong> ${format(new Date(payment.payment_date), 'PPP')}</p>
+              <p><strong>${t('payment.status')}:</strong> ${payment.payment_status}</p>
             </div>
             <div class="total">
-              <p>Total Amount Paid: ₹${payment.amount.toLocaleString('en-IN')}</p>
+              <p>${t('payment.totalAmount')}: ₹${payment.amount.toLocaleString('en-IN')}</p>
             </div>
           </div>
         </body>
       </html>
     `;
 
-    // Create a blob and download
     const blob = new Blob([invoiceHTML], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -109,15 +109,15 @@ const PaymentHistory: React.FC = () => {
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="flex items-center gap-3 mb-8">
           <Receipt className="w-8 h-8" />
-          <h1 className="text-4xl font-bold">Payment History</h1>
+          <h1 className="text-4xl font-bold">{t('payment.title')}</h1>
         </div>
 
         {loading ? (
-          <div className="text-center py-12">Loading payment history...</div>
+          <div className="text-center py-12">{t('payment.loading')}</div>
         ) : payments.length === 0 ? (
           <Card>
             <CardContent className="pt-6 text-center">
-              <p className="text-muted-foreground">No payment history found</p>
+              <p className="text-muted-foreground">{t('payment.noHistory')}</p>
             </CardContent>
           </Card>
         ) : (
@@ -135,19 +135,19 @@ const PaymentHistory: React.FC = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">Transaction ID</p>
+                      <p className="text-sm text-muted-foreground">{t('payment.transactionId')}</p>
                       <p className="font-mono text-sm">{payment.transaction_id}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Amount</p>
+                      <p className="text-sm text-muted-foreground">{t('payment.amount')}</p>
                       <p className="text-2xl font-bold">₹{payment.amount.toLocaleString('en-IN')}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Payment Date</p>
+                      <p className="text-sm text-muted-foreground">{t('payment.date')}</p>
                       <p className="text-sm">{format(new Date(payment.payment_date), 'PPP')}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Razorpay Order ID</p>
+                      <p className="text-sm text-muted-foreground">{t('payment.razorpayOrderId')}</p>
                       <p className="font-mono text-sm">{payment.razorpay_order_id}</p>
                     </div>
                   </div>
@@ -158,7 +158,7 @@ const PaymentHistory: React.FC = () => {
                       onClick={() => downloadInvoice(payment)}
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Download Invoice
+                      {t('payment.downloadInvoice')}
                     </Button>
                   </div>
                 </CardContent>

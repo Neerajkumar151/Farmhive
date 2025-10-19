@@ -700,7 +700,7 @@ export default function Resources() {
 
         <div className="container relative z-10 mx-auto px-4">
           {/* Header Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-sm">
               Government Schemes & Yojanas
             </h1>
