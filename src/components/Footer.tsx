@@ -1,6 +1,6 @@
 // src/components/Footer.tsx - Complete
 
-import { Sprout, Mail, Phone, MapPin, Feather, Users, Github, Camera, Code } from 'lucide-react';
+import { Sprout, Mail, Phone, MapPin, Feather, Users, Github, Camera, Code, Linkedin, Instagram, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -15,10 +15,10 @@ export default function Footer() {
 
     // Social Links using Lucide icons
     const SOCIAL_LINKS = [
-        { icon: Feather, url: 'https://x.com/neerajkumar1715', color: 'hover:text-sky-400' },
-        { icon: Users, url: 'https://www.linkedin.com/in/neerajkumar1517/', color: 'hover:text-blue-500' },
+        { icon: Twitter, url: 'https://x.com/neerajkumar1715', color: 'hover:text-sky-400' },
+        { icon: Linkedin, url: 'https://www.linkedin.com/in/neerajkumar1517/', color: 'hover:text-blue-500' },
         { icon: Github, url: 'https://github.com/Neerajkumar151', color: 'hover:text-gray-200' },
-        { icon: Camera, url: 'https://instagram.com', color: 'hover:text-pink-500' },
+        { icon: Instagram, url: 'https://instagram.com', color: 'hover:text-pink-500' },
         { icon: Code, url: 'https://leetcode.com/u/neerajkumar17/', color: 'hover:text-yellow-400' }
     ];
 
