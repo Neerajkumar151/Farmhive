@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { LanguageSelector } from '@/components/ui/language-selector';
 import { useAuth } from '@/contexts/AuthContext';
 import { Sprout, User, LogOut, ChevronDown } from 'lucide-react';
+import { LanguageSelector } from '../ui/language-selector';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -17,11 +17,48 @@ export const Header: React.FC = () => {
     const { t } = useTranslation();
     const { user, profile, isAdmin, signOut } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSignOut = async () => {
         await signOut();
         navigate('/'); 
     };
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        // Define global callback once
+        if (!window.googleTranslateElementInit) {
+            window.googleTranslateElementInit = () => {
+                const container = document.getElementById('google_translate_element');
+                if (!container) return;
+
+                // Clear any previous widget to avoid duplicates
+                container.innerHTML = '';
+
+                new window.google.translate.TranslateElement(
+                    {
+                        pageLanguage: 'en',
+                        includedLanguages: 'en,hi,ta,te,bn',
+                        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    },
+                    'google_translate_element'
+                );
+            };
+        }
+
+        // Add the Google Translate script only once
+        if (!document.getElementById('google-translate-script')) {
+            const script = document.createElement('script');
+            script.id = 'google-translate-script';
+            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            script.async = true;
+            document.body.appendChild(script);
+        } else {
+            // If script already exists, just initialize the widget
+            window.googleTranslateElementInit();
+        }
+    }, []); // ✅ Run only once
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -40,7 +77,6 @@ export const Header: React.FC = () => {
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-6">
-                    {/* Navigation Links */}
                     <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
                         {t('nav.home')}
                     </Link>
@@ -57,7 +93,6 @@ export const Header: React.FC = () => {
                         {t('nav.community')}
                     </Link>
 
-                    {/* MORE DROPDOWN MENU */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <button className="flex items-center gap-1 text-foreground/80 hover:text-foreground transition-colors">
@@ -84,8 +119,6 @@ export const Header: React.FC = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    
-                    {/* ADMIN PANEL LINK */}
                     {isAdmin && (
                         <Link 
                             to="/admin" 
@@ -97,8 +130,9 @@ export const Header: React.FC = () => {
                 </nav>
 
                 <div className="flex items-center gap-3">
+                    <div id="google_translate_element" className="google-translate-dropdown" />
                     <LanguageSelector />
-                    
+
                     {user ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>

@@ -121,58 +121,6 @@ All colors MUST be HSL.
 
 
 
-
-/* ======================================= */
-/* HIDE GOOGLE BRANDING ELEMENTS           */
-/* ======================================= */
-
-/* 1. Targets the text "Powered by Google" */
-.goog-te-gadget .goog-te-kit-css {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-/* 2. Targets another common wrapper element that sometimes holds branding text */
-/* This element is often a span or div with injected styling */
-.goog-te-gadget .VIpgJd-ZVi9od-LgbsSe {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-/* 3. If there is any remaining space or text beside the dropdown, target the link wrapper */
-.goog-te-gadget a {
-    /* If the branding is rendered as a link, hide it */
-    display: none !important;
-    visibility: hidden !important;
-}
-
-
-/* ================================================= */
-/* CRITICAL FIX: ELIMINATE POWERED BY TEXT          */
-/* ================================================= */
-
-/* Targets the specific Google branding span/link. This is usually the culprit. */
-.goog-logo-link {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-/* Targets the gadget elements that contain the branding link/text */
-.goog-te-gadget {
-    /* Ensure no text is displayed outside the select box */
-    font-size: 0 !important; /* Forces any stray text to size zero */
-}
-
-/* Also ensure these older, aggressive rules are still present: */
-.goog-te-gadget .goog-te-kit-css,
-.goog-te-gadget .VIpgJd-ZVi9od-LgbsSe { 
-    display: none !important;
-    visibility: hidden !important;
-}
-
-
-
-
 @layer base {
   * {
     @apply border-border;
@@ -241,4 +189,129 @@ All colors MUST be HSL.
 
 .marquee-content:hover {
   animation-play-state: paused;
+}
+
+
+/* ======================================= */
+/* SHOW ONLY GOOGLE TRANSLATE ICON CENTERED */
+/* ======================================= */
+
+#google_translate_element {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Clean clickable container */
+#google_translate_element .goog-te-gadget-simple {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+}
+
+/* ✅ Keep only the icon visible */
+#google_translate_element .goog-te-gadget-icon {
+  display: inline-block !important;
+  width: 30px !important;
+  height: 30px !important;
+  background: url('https://www.gstatic.com/images/branding/product/2x/translate_24dp.png') no-repeat center center !important;
+  background-size: contain !important;
+  margin: 0 auto !important;
+}
+
+/* ❌ Hide all text & arrow elements but keep icon */
+#google_translate_element .goog-te-gadget-simple span,
+#google_translate_element .goog-te-gadget-simple .goog-te-menu-value span,
+#google_translate_element .goog-te-gadget-simple .goog-te-menu-value:after {
+  display: none !important;
+  visibility: hidden !important;
+  font-size: 0 !important;
+  color: transparent !important;
+  line-height: 0 !important;
+}
+
+/* Hide “Select Language” completely */
+#google_translate_element .goog-te-gadget {
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* Hide Google branding, tooltips, etc. */
+.goog-logo-link,
+.goog-te-banner-frame.skiptranslate,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+
+/* Make the language list scrollable vertically */
+#google_translate_element iframe.goog-te-menu-frame {
+  width: 350px !important;   /* wider to fit more languages */
+  height: 400px !important;  /* fixed height */
+  max-height: 400px !important;
+  overflow-y: auto !important;
+}
+
+/* Optional: style individual language items */
+body .goog-te-menu2-item {
+  padding: 8px 12px !important;
+  text-align: left !important;
+  color: hsl(var(--foreground)) !important;
+  font-size: 0.95rem !important;
+}
+
+body .goog-te-menu2-item:hover {
+  background-color: hsl(var(--muted)) !important;
+}
+
+/* ======================================= */
+/* FIX: DROPDOWN CLIPPING AND SCROLLING    */
+/* ======================================= */
+
+/* ======================================= */
+/* FIX: DROPDOWN CLIPPING AND SCROLLING    */
+/* ======================================= */
+
+/* Targets the IFRAME containing the menu */
+#google_translate_element iframe.goog-te-menu-frame {
+    /* CRITICAL FIX: Ensures the iframe is positioned far enough away from the screen edge
+       so that it does not hit the bottom of the viewport, which causes clipping. 
+       This positions the menu relative to the top of the browser window.
+    */
+    position: fixed !important; 
+    top: 50px !important;       /* Pulls the menu down from the very top */
+    right: 50px !important;     /* Keeps it anchored on the right side */
+    
+    /* Ensure the menu has a fixed, visible height */
+    height: 400px !important; 
+    max-height: 400px !important;
+    
+    /* Ensure the iframe is drawn over everything */
+    z-index: 999999 !important; 
+}
+
+/* This targets the internal scrollable menu list container */
+body .goog-te-menu2 {
+    /* CRITICAL FIX: Force the overflow behavior on the list wrapper */
+    overflow-y: auto !important;
+    max-height: 400px !important; /* Matches iframe height */
+    overflow-x: hidden !important; 
+}
+
+/* Optional: Targets the individual list items to maximize visibility */
+body .goog-te-menu2-item {
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
 }
