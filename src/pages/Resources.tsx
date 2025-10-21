@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Search } from 'lucide-react';
 import Footer from '@/components/Footer';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 interface Scheme {
   name: string;
@@ -19,613 +21,632 @@ interface Scheme {
   state: string;
 }
 
-// Placeholder: all India schemes
-const allIndiaSchemes: Scheme[] = [
-   {
-    name: "PM-KISAN",
-    description: "Income support of ₹6,000 per year to farmers.",
-    category: "Income Support",
+
+const INITIAL_SCHEMES_LIMIT = 9;
+const SCHEMES_PER_LOAD = 9;
+
+export default function Resources() {
+  const { t } = useTranslation(); // Initialize useTranslation
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(t('All')); // Use t() for initial state
+  const [selectedState, setSelectedState] = useState(t('All States')); // Use t() for initial state
+  const [visibleSchemesLimit, setVisibleSchemesLimit] = useState(INITIAL_SCHEMES_LIMIT);
+
+  useEffect(() => {
+  // When language changes, reset the filters to the newly translated default values.
+  setSelectedCategory(t('All'));
+  setSelectedState(t('All States'));
+  // We also reset the search query for a clean slate
+  setSearchQuery('');
+}, [t]);
+
+ 
+  // Placeholder: all India schemes
+const allIndiaSchemes= useMemo((): Scheme[] => [
+    {
+    name: t("PM-KISAN"),
+    description: t("Income support of ₹6,000 per year to farmers."),
+    category: t("Income Support"),
     link: "https://pmkisan.gov.in/",
-    eligibility: "All landholding farmers",
-    state: "All India"
+    eligibility: t("All landholding farmers"),
+    state: t("All India")
   },
   {
-    name: "PMFBY",
-    description: "Crop insurance covering yield loss due to natural calamities, pests & diseases.",
-    category: "Insurance",
+    name: t("PMFBY"),
+    description: t("Crop insurance covering yield loss due to natural calamities, pests & diseases."),
+    category: t("Insurance"),
     link: "https://pmfby.gov.in/",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Soil Health Card Scheme",
-    description: "Provides farmers with soil health cards with crop-wise recommendations.",
-    category: "Soil Health",
+    name: t("Soil Health Card Scheme"),
+    description: t("Provides farmers with soil health cards with crop-wise recommendations."),
+    category: t("Soil Health"),
     link: "https://soilhealth.dac.gov.in/",
-    eligibility: "All farmers with agricultural land",
-    state: "All India"
+    eligibility: t("All farmers with agricultural land"),
+    state: t("All India")
   },
   {
-    name: "Paramparagat Krishi Vikas Yojana (PKVY)",
-    description: "Promotes organic farming through cluster-based approach with financial assistance.",
-    category: "Organic Farming",
+    name: t("Paramparagat Krishi Vikas Yojana (PKVY)"),
+    description: t("Promotes organic farming through cluster-based approach with financial assistance."),
+    category: t("Organic Farming"),
     link: "https://agricoop.gov.in/en/schemes/paramparagat-krishi-vikas-yojana-pkvy",
-    eligibility: "Groups practicing organic farming",
-    state: "All India"
+    eligibility: t("Groups practicing organic farming"),
+    state: t("All India")
   },
   {
-    name: "Pradhan Mantri Krishi Sinchai Yojana (PMKSY)",
-    description: "Expand cultivated area with assured irrigation, improve water use efficiency.",
-    category: "Irrigation",
+    name: t("Pradhan Mantri Krishi Sinchai Yojana (PMKSY)"),
+    description: t("Expand cultivated area with assured irrigation, improve water use efficiency."),
+    category: t("Irrigation"),
     link: "https://pmksy.gov.in/",
-    eligibility: "Farmers with agricultural land",
-    state: "All India"
+    eligibility: t("Farmers with agricultural land"),
+    state: t("All India")
   },
   {
-    name: "Kisan Credit Card (KCC)",
-    description: "Provides timely credit support at concessional interest rates.",
-    category: "Credit",
+    name: t("Kisan Credit Card (KCC)"),
+    description: t("Provides timely credit support at concessional interest rates."),
+    category: t("Credit"),
     link: "https://agricoop.gov.in/kisan-credit-card-scheme",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "National Mission for Sustainable Agriculture (NMSA)",
-    description: "Promotes sustainable practices through soil, water, and climate resilience.",
-    category: "Sustainable Agriculture",
+    name: t("National Mission for Sustainable Agriculture (NMSA)"),
+    description: t("Promotes sustainable practices through soil, water, and climate resilience."),
+    category: t("Sustainable Agriculture"),
     link: "https://agricoop.gov.in/en/national-mission-sustainable-agriculture-nmsa",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Sub-Mission on Agricultural Mechanization (SMAM)",
-    description: "Financial assistance for farm machinery & equipment to boost mechanization.",
-    category: "Mechanization",
+    name: t("Sub-Mission on Agricultural Mechanization (SMAM)"),
+    description: t("Financial assistance for farm machinery & equipment to boost mechanization."),
+    category: t("Mechanization"),
     link: "https://agricoop.gov.in/en/sub-mission-agriculture-mechanization-smam",
-    eligibility: "Farmers, SHGs, FPOs",
-    state: "All India"
+    eligibility: t("Farmers, SHGs, FPOs"),
+    state: t("All India")
   },
   {
-    name: "National Agricultural Market (eNAM)",
-    description: "Promotes online trading of farm produce.",
-    category: "Technology Adoption",
+    name: t("National Agricultural Market (eNAM)"),
+    description: t("Promotes online trading of farm produce."),
+    category: t("Technology Adoption"),
     link: "https://enam.gov.in/web/",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Pradhan Mantri Kisan Mandhan Yojana",
-    description: "Pension scheme for small and marginal farmers.",
-    category: "Income Support",
+    name: t("Pradhan Mantri Kisan Mandhan Yojana"),
+    description: t("Pension scheme for small and marginal farmers."),
+    category: t("Income Support"),
     link: "https://pmkisan.gov.in/",
-    eligibility: "Small & marginal farmers",
-    state: "All India"
+    eligibility: t("Small & marginal farmers"),
+    state: t("All India")
   },
   {
-    name: "Kisan Samman Pension Scheme",
-    description: "Pension for elderly farmers.",
-    category: "Income Support",
+    name: t("Kisan Samman Pension Scheme"),
+    description: t("Pension for elderly farmers."),
+    category: t("Income Support"),
     link: "https://pmkisan.gov.in/",
-    eligibility: "Farmers above 60 years",
-    state: "All India"
+    eligibility: t("Farmers above 60 years"),
+    state: t("All India")
   },
   {
-    name: "Pradhan Mantri Matsya Sampada Yojana (PMMSY)",
-    description: "Development of fisheries and aquaculture.",
-    category: "Technology Adoption",
+    name: t("Pradhan Mantri Matsya Sampada Yojana (PMMSY)"),
+    description: t("Development of fisheries and aquaculture."),
+    category: t("Technology Adoption"),
     link: "https://pmmsy.dof.gov.in/",
-    eligibility: "Fishermen & fish farmers",
-    state: "All India"
+    eligibility: t("Fishermen & fish farmers"),
+    state: t("All India")
   },
   {
-    name: "National Food Security Mission (NFSM)",
-    description: "Enhances production of rice, wheat, pulses, and coarse cereals.",
-    category: "Sustainable Agriculture",
+    name: t("National Food Security Mission (NFSM)"),
+    description: t("Enhances production of rice, wheat, pulses, and coarse cereals."),
+    category: t("Sustainable Agriculture"),
     link: "https://nfsm.gov.in/",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Rashtriya Krishi Vikas Yojana (RKVY)",
-    description: "Support for agriculture development and diversification.",
-    category: "Sustainable Agriculture",
+    name: t("Rashtriya Krishi Vikas Yojana (RKVY)"),
+    description: t("Support for agriculture development and diversification."),
+    category: t("Sustainable Agriculture"),
     link: "https://rkvy.nic.in/",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Soil Health Management (SHM)",
-    description: "Improves soil fertility through integrated nutrient management.",
-    category: "Soil Health",
+    name: t("Soil Health Management (SHM)"),
+    description: t("Improves soil fertility through integrated nutrient management."),
+    category: t("Soil Health"),
     link: "https://agricoop.gov.in/en/soil-health-management",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "National Mission on Agriculture Extension & Technology (NMAET)",
-    description: "Improves technology adoption and farmer knowledge.",
-    category: "Technology Adoption",
+    name: t("National Mission on Agriculture Extension & Technology (NMAET)"),
+    description: t("Improves technology adoption and farmer knowledge."),
+    category: t("Technology Adoption"),
     link: "https://agricoop.gov.in/en/national-mission-agriculture-extension-technology-nmaet",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "National Cooperative Development Corporation (NCDC)",
-    description: "Provides financial support for agri cooperatives.",
-    category: "Credit",
+    name: t("National Cooperative Development Corporation (NCDC)"),
+    description: t("Provides financial support for agri cooperatives."),
+    category: t("Credit"),
     link: "https://ncdc.nic.in/",
-    eligibility: "Farmers and cooperatives",
-    state: "All India"
+    eligibility: t("Farmers and cooperatives"),
+    state: t("All India")
   },
   {
-    name: "Pradhan Mantri Fasal Bima Yojana - Loanee",
-    description: "Insurance for loanee farmers against crop loss.",
-    category: "Insurance",
+    name: t("Pradhan Mantri Fasal Bima Yojana - Loanee"),
+    description: t("Insurance for loanee farmers against crop loss."),
+    category: t("Insurance"),
     link: "https://pmfby.gov.in/",
-    eligibility: "Loan-taking farmers",
-    state: "All India"
+    eligibility: t("Loan-taking farmers"),
+    state: t("All India")
   },
   {
-    name: "Soil Health Card - Organic Inputs Support",
-    description: "Encourages organic input use for better soil health.",
-    category: "Organic Farming",
+    name: t("Soil Health Card - Organic Inputs Support"),
+    description: t("Encourages organic input use for better soil health."),
+    category: t("Organic Farming"),
     link: "https://soilhealth.dac.gov.in/",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
   {
-    name: "Sub-Mission on Seed & Planting Material",
-    description: "Promotes quality seed and planting material production.",
-    category: "Technology Adoption",
+    name: t("Sub-Mission on Seed & Planting Material"),
+    description: t("Promotes quality seed and planting material production."),
+    category: t("Technology Adoption"),
     link: "https://agricoop.gov.in/en/sub-mission-seed-planting-material",
-    eligibility: "All farmers",
-    state: "All India"
+    eligibility: t("All farmers"),
+    state: t("All India")
   },
-];
+],[t]);
 
 // Placeholder: add similar state-wise schemes covering all categories here
 // Example for UP:
 
 
 
-const upSchemes: Scheme[] = [
+const upSchemes= useMemo((): Scheme[] => [
   {
-    name: "Kisan Sarvhit Bima Yojana",
-    description: "Insurance for accidental death, disability & hospitalization.",
-    category: "Insurance",
+    name: t("Kisan Sarvhit Bima Yojana"),
+    description: t("Insurance for accidental death, disability & hospitalization."),
+    category: t("Insurance"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmer families",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmer families"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Seed Subsidy Program",
-    description: "Subsidy for certified seeds.",
-    category: "Technology Adoption",
+    name: t("UP Seed Subsidy Program"),
+    description: t("Subsidy for certified seeds."),
+    category: t("Technology Adoption"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "All farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("All farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Kisan Credit Card",
-    description: "Credit support for cultivation and allied activities.",
-    category: "Credit",
+    name: t("UP Kisan Credit Card"),
+    description: t("Credit support for cultivation and allied activities."),
+    category: t("Credit"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Micro Irrigation Scheme",
-    description: "Supports drip & sprinkler irrigation systems.",
-    category: "Irrigation",
+    name: t("UP Micro Irrigation Scheme"),
+    description: t("Supports drip & sprinkler irrigation systems."),
+    category: t("Irrigation"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Soil Health Management",
-    description: "Soil testing & fertility improvement.",
-    category: "Soil Health",
+    name: t("UP Soil Health Management"),
+    description: t("Soil testing & fertility improvement."),
+    category: t("Soil Health"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Organic Farming Initiative",
-    description: "Encourages organic farming clusters.",
-    category: "Organic Farming",
+    name: t("UP Organic Farming Initiative"),
+    description: t("Encourages organic farming clusters."),
+    category: t("Organic Farming"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Interested farmers",
-    state: "Uttar Pradesh"
+    eligibility: t("Interested farmers"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Sustainable Agriculture Support",
-    description: "Promotes crop rotation & climate-resilient practices.",
-    category: "Sustainable Agriculture",
+    name: t("UP Sustainable Agriculture Support"),
+    description: t("Promotes crop rotation & climate-resilient practices."),
+    category: t("Sustainable Agriculture"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Farmer Technology Program",
-    description: "Training and demonstration of modern agricultural tech.",
-    category: "Technology Adoption",
+    name: t("UP Farmer Technology Program"),
+    description: t("Training and demonstration of modern agricultural tech."),
+    category: t("Technology Adoption"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "Farmers in UP",
-    state: "Uttar Pradesh"
+    eligibility: t("Farmers in UP"),
+    state: t("Uttar Pradesh")
   },
   {
-    name: "UP Income Support Yojana",
-    description: "Direct cash assistance for small farmers.",
-    category: "Income Support",
+    name: t("UP Income Support Yojana"),
+    description: t("Direct cash assistance for small farmers."),
+    category: t("Income Support"),
     link: "https://upagripardarshi.gov.in/",
-    eligibility: "All land-owning farmers",
-    state: "Uttar Pradesh"
+    eligibility: t("All land-owning farmers"),
+    state: t("Uttar Pradesh")
   },
-];
+],[t]);
 
 // BIHAR
-const biharSchemes: Scheme[] = [
+const biharSchemes= useMemo(():Scheme[] => [
   {
-    name: "Bhavantar Bhugtan Yojana",
-    description: "Price difference compensation for oilseeds & pulses.",
-    category: "Income Support",
+    name: t("Bhavantar Bhugtan Yojana"),
+    description: t("Price difference compensation for oilseeds & pulses."),
+    category: t("Income Support"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers cultivating notified crops",
-    state: "Bihar"
+    eligibility: t("Farmers cultivating notified crops"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar State Crop Insurance Scheme",
-    description: "Insurance coverage for crop loss due to natural disasters.",
-    category: "Insurance",
+    name: t("Bihar State Crop Insurance Scheme"),
+    description: t("Insurance coverage for crop loss due to natural disasters."),
+    category: t("Insurance"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("Farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Soil Health Program",
-    description: "Soil testing and nutrient management.",
-    category: "Soil Health",
+    name: t("Bihar Soil Health Program"),
+    description: t("Soil testing and nutrient management."),
+    category: t("Soil Health"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "All farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("All farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Micro Irrigation Scheme",
-    description: "Support for drip and sprinkler irrigation systems.",
-    category: "Irrigation",
+    name: t("Bihar Micro Irrigation Scheme"),
+    description: t("Support for drip and sprinkler irrigation systems."),
+    category: t("Irrigation"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "All farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("All farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Kisan Credit Card",
-    description: "Credit support for cultivation & allied activities.",
-    category: "Credit",
+    name: t("Bihar Kisan Credit Card"),
+    description: t("Credit support for cultivation & allied activities."),
+    category: t("Credit"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("Farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Agricultural Mechanization Support",
-    description: "Subsidy for farm machinery purchase.",
-    category: "Mechanization",
+    name: t("Bihar Agricultural Mechanization Support"),
+    description: t("Subsidy for farm machinery purchase."),
+    category: t("Mechanization"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("Farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Organic Farming Support",
-    description: "Promotion of organic farming practices.",
-    category: "Organic Farming",
+    name: t("Bihar Organic Farming Support"),
+    description: t("Promotion of organic farming practices."),
+    category: t("Organic Farming"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Interested farmers",
-    state: "Bihar"
+    eligibility: t("Interested farmers"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Technology Adoption Program",
-    description: "Demonstration of modern agriculture technologies.",
-    category: "Technology Adoption",
+    name: t("Bihar Technology Adoption Program"),
+    description: t("Demonstration of modern agriculture technologies."),
+    category: t("Technology Adoption"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("Farmers in Bihar"),
+    state: t("Bihar")
   },
   {
-    name: "Bihar Sustainable Agriculture Initiative",
-    description: "Promotion of crop rotation & climate resilient farming.",
-    category: "Sustainable Agriculture",
+    name: t("Bihar Sustainable Agriculture Initiative"),
+    description: t("Promotion of crop rotation & climate resilient farming."),
+    category: t("Sustainable Agriculture"),
     link: "https://agribihar.bihar.gov.in/",
-    eligibility: "Farmers in Bihar",
-    state: "Bihar"
+    eligibility: t("Farmers in Bihar"),
+    state: t("Bihar")
   }
-];
+],[t]);
 
 // TELANGANA
-const telanganaSchemes: Scheme[] = [
+const telanganaSchemes= useMemo((): Scheme[] => [
   {
-    name: "Rythu Bandhu Scheme",
-    description: "Investment support for agriculture & horticulture crops.",
-    category: "Income Support",
+    name: t("Rythu Bandhu Scheme"),
+    description: t("Investment support for agriculture & horticulture crops."),
+    category: t("Income Support"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Land-owning farmers",
-    state: "Telangana"
+    eligibility: t("Land-owning farmers"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Crop Insurance Scheme",
-    description: "Insurance for crop losses due to natural disasters.",
-    category: "Insurance",
+    name: t("Telangana Crop Insurance Scheme"),
+    description: t("Insurance for crop losses due to natural disasters."),
+    category: t("Insurance"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "All farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("All farmers in Telangana"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Soil Health Program",
-    description: "Soil testing and nutrient management support.",
-    category: "Soil Health",
+    name: t("Telangana Soil Health Program"),
+    description: t("Soil testing and nutrient management support."),
+    category: t("Soil Health"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "All farmers",
-    state: "Telangana"
+    eligibility: t("All farmers"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Micro Irrigation Scheme",
-    description: "Support for drip & sprinkler irrigation.",
-    category: "Irrigation",
+    name: t("Telangana Micro Irrigation Scheme"),
+    description: t("Support for drip & sprinkler irrigation."),
+    category: t("Irrigation"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("Farmers in Telangana"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Kisan Credit Card",
-    description: "Credit support for cultivation & allied activities.",
-    category: "Credit",
+    name: t("Telangana Kisan Credit Card"),
+    description: t("Credit support for cultivation & allied activities."),
+    category: t("Credit"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("Farmers in Telangana"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Agricultural Mechanization",
-    description: "Financial assistance for farm machinery.",
-    category: "Mechanization",
+    name: t("Telangana Agricultural Mechanization"),
+    description: t("Financial assistance for farm machinery."),
+    category: t("Mechanization"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("Farmers in Telangana"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Organic Farming Program",
-    description: "Promotes organic farming clusters.",
-    category: "Organic Farming",
+    name: t("Telangana Organic Farming Program"),
+    description: t("Promotes organic farming clusters."),
+    category: t("Organic Farming"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Interested farmers",
-    state: "Telangana"
+    eligibility: t("Interested farmers"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Technology Adoption Program",
-    description: "Training in modern agri tech and practices.",
-    category: "Technology Adoption",
+    name: t("Telangana Technology Adoption Program"),
+    description: t("Training in modern agri tech and practices."),
+    category: t("Technology Adoption"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("Farmers in Telangana"),
+    state: t("Telangana")
   },
   {
-    name: "Telangana Sustainable Agriculture Program",
-    description: "Promotes eco-friendly farming practices.",
-    category: "Sustainable Agriculture",
+    name: t("Telangana Sustainable Agriculture Program"),
+    description: t("Promotes eco-friendly farming practices."),
+    category: t("Sustainable Agriculture"),
     link: "https://rythubandhu.telangana.gov.in/",
-    eligibility: "Farmers in Telangana",
-    state: "Telangana"
+    eligibility: t("Farmers in Telangana"),
+    state: t("Telangana")
   }
-];
+],[t]);
 
 // KARNATAKA
-const karnatakaSchemes: Scheme[] = [
+const karnatakaSchemes= useMemo((): Scheme[] => [
   {
-    name: "Raita Siri Scheme",
-    description: "Financial support for millet cultivation.",
-    category: "Income Support",
+    name: t("Raita Siri Scheme"),
+    description: t("Financial support for millet cultivation."),
+    category: t("Income Support"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Millet farmers",
-    state: "Karnataka"
+    eligibility: t("Millet farmers"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Crop Insurance Scheme",
-    description: "Insurance coverage for crop losses.",
-    category: "Insurance",
+    name: t("Karnataka Crop Insurance Scheme"),
+    description: t("Insurance coverage for crop losses."),
+    category: t("Insurance"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "All farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("All farmers in Karnataka"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Soil Health Program",
-    description: "Soil testing & fertility improvement.",
-    category: "Soil Health",
+    name: t("Karnataka Soil Health Program"),
+    description: t("Soil testing & fertility improvement."),
+    category: t("Soil Health"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "All farmers",
-    state: "Karnataka"
+    eligibility: t("All farmers"),
+    state: t("Karnataka")
   },
   {
-    name: "Krishi Bhagya Scheme",
-    description: "Supports micro-irrigation & water conservation.",
-    category: "Irrigation",
+    name: t("Krishi Bhagya Scheme"),
+    description: t("Supports micro-irrigation & water conservation."),
+    category: t("Irrigation"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("Farmers in Karnataka"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Kisan Credit Card",
-    description: "Credit support for cultivation & allied activities.",
-    category: "Credit",
+    name: t("Karnataka Kisan Credit Card"),
+    description: t("Credit support for cultivation & allied activities."),
+    category: t("Credit"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("Farmers in Karnataka"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Agricultural Mechanization",
-    description: "Financial support for farm equipment.",
-    category: "Mechanization",
+    name: t("Karnataka Agricultural Mechanization"),
+    description: t("Financial support for farm equipment."),
+    category: t("Mechanization"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("Farmers in Karnataka"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Organic Farming Program",
-    description: "Encourages organic farming clusters.",
-    category: "Organic Farming",
+    name: t("Karnataka Organic Farming Program"),
+    description: t("Encourages organic farming clusters."),
+    category: t("Organic Farming"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Interested farmers",
-    state: "Karnataka"
+    eligibility: t("Interested farmers"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Technology Adoption Program",
-    description: "Demonstration of modern agriculture tech.",
-    category: "Technology Adoption",
+    name: t("Karnataka Technology Adoption Program"),
+    description: t("Demonstration of modern agriculture tech."),
+    category: t("Technology Adoption"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("Farmers in Karnataka"),
+    state: t("Karnataka")
   },
   {
-    name: "Karnataka Sustainable Agriculture Program",
-    description: "Promotes eco-friendly & resilient farming.",
-    category: "Sustainable Agriculture",
+    name: t("Karnataka Sustainable Agriculture Program"),
+    description: t("Promotes eco-friendly & resilient farming."),
+    category: t("Sustainable Agriculture"),
     link: "https://raitamitra.karnataka.gov.in/english",
-    eligibility: "Farmers in Karnataka",
-    state: "Karnataka"
+    eligibility: t("Farmers in Karnataka"),
+    state: t("Karnataka")
   }
-];
+],[t]);
+
+const maharashtraSchemes= useMemo((): Scheme[] => [
+  { name: t("Jalyukta Shivar Abhiyan"), description: t("Water conservation & micro-irrigation."), category: t("Irrigation"), link: "https://mahaagri.gov.in/", eligibility: t("Farmers in drought-prone areas"), state: t("Maharashtra") },
+  { name: t("Maharashtra Crop Insurance"), description: t("Covers crop loss due to natural disasters."), category: t("Insurance"), link: "https://mahaagri.gov.in/", eligibility: t("Farmers in Maharashtra"), state: t("Maharashtra") },
+  { name: t("Maharashtra Income Support"), description: t("Direct cash support for small farmers."), category: t("Income Support"), link: "https://mahaagri.gov.in/", eligibility: t("All farmers"), state: t("Maharashtra") },
+  { name: t("Maharashtra Soil Health Program"), description: t("Soil testing & nutrient recommendations."), category: t("Soil Health"), link: "https://mahaagri.gov.in/", eligibility: t("All farmers"), state: t("Maharashtra") },
+  { name: t("Maharashtra KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://mahaagri.gov.in/", eligibility: t("Farmers in Maharashtra"), state: t("Maharashtra") },
+  { name: t("Maharashtra Mechanization Subsidy"), description: t("Subsidy for farm machinery & equipment."), category: t("Mechanization"), link: "https://mahaagri.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Maharashtra") },
+  { name: t("Maharashtra Organic Farming"), description: t("Promotion of organic farming practices."), category: t("Organic Farming"), link: "https://mahaagri.gov.in/", eligibility: t("Interested farmers"), state: t("Maharashtra") },
+  { name: t("Maharashtra Technology Program"), description: t("Modern agri-tech adoption training."), category: t("Technology Adoption"), link: "https://mahaagri.gov.in/", eligibility: t("Farmers in Maharashtra"), state: t("Maharashtra") },
+  { name: t("Maharashtra Sustainable Agri Program"), description: t("Eco-friendly farming & crop rotation."), category: t("Sustainable Agriculture"), link: "https://mahaagri.gov.in/", eligibility: t("All farmers"), state: t("Maharashtra") }
+],[t]);
+
+const gujaratSchemes= useMemo((): Scheme[] => [
+  { name: t("CM Kisan Sahay Yojana"), description: t("Compensation for crop loss due to calamities."), category: t("Insurance"), link: "https://agri.gujarat.gov.in/", eligibility: t("Farmers cultivating notified crops"), state: t("Gujarat") },
+  { name: t("Gujarat Seed Subsidy"), description: t("Subsidy for certified seeds."), category: t("Technology Adoption"), link: "https://agri.gujarat.gov.in/", eligibility: t("All farmers"), state: t("Gujarat") },
+  { name: t("Gujarat Income Support"), description: t("Direct cash assistance for farmers."), category: t("Income Support"), link: "https://agri.gujarat.gov.in/", eligibility: t("All farmers"), state: t("Gujarat") },
+  { name: t("Gujarat Soil Health Program"), description: t("Soil testing and fertility improvement."), category: t("Soil Health"), link: "https://agri.gujarat.gov.in/", eligibility: t("All farmers"), state: t("Gujarat") },
+  { name: t("Gujarat KCC"), description: t("Credit for cultivation & equipment."), category: t("Credit"), link: "https://agri.gujarat.gov.in/", eligibility: t("All farmers"), state: t("Gujarat") },
+  { name: t("Gujarat Mechanization Scheme"), description: t("Support for farm machinery."), category: t("Mechanization"), link: "https://agri.gujarat.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Gujarat") },
+  { name: t("Gujarat Organic Farming Program"), description: t("Promotes organic farming clusters."), category: t("Organic Farming"), link: "https://agri.gujarat.gov.in/", eligibility: t("Interested farmers"), state: t("Gujarat") },
+  { name: t("Gujarat Sustainable Agri Program"), description: t("Promotes eco-friendly & resilient practices."), category: t("Sustainable Agriculture"), link: "https://agri.gujarat.gov.in/", eligibility: t("Farmers"), state: t("Gujarat") }
+],[t]);
+
+const odishaSchemes= useMemo((): Scheme[] => [
+  { name: t("Odisha Farmer Assistance"), description: t("Subsidies for seeds, fertilizers, irrigation."), category: t("Income Support"), link: "https://agriculture.odisha.gov.in/", eligibility: t("All farmers"), state: t("Odisha") },
+  { name: t("Odisha Crop Insurance"), description: t("Insurance support against crop loss."), category: t("Insurance"), link: "https://agriculture.odisha.gov.in/", eligibility: t("Farmers in Odisha"), state: t("Odisha") },
+  { name: t("Odisha Soil Health"), description: t("Soil testing & management programs."), category: t("Soil Health"), link: "https://agriculture.odisha.gov.in/", eligibility: t("All farmers"), state: t("Odisha") },
+  { name: t("Odisha Micro Irrigation"), description: t("Drip & sprinkler irrigation assistance."), category: t("Irrigation"), link: "https://agriculture.odisha.gov.in/", eligibility: t("All farmers"), state: t("Odisha") },
+  { name: t("Odisha KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://agriculture.odisha.gov.in/", eligibility: t("Farmers"), state: t("Odisha") },
+  { name: t("Odisha Mechanization"), description: t("Support for farm machinery."), category: t("Mechanization"), link: "https://agriculture.odisha.gov.in/", eligibility: t("Farmers"), state: t("Odisha") },
+  { name: t("Odisha Organic Farming"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://agriculture.odisha.gov.in/", eligibility: t("Interested farmers"), state: t("Odisha") },
+  { name: t("Odisha Technology Adoption"), description: t("Modern agri tech training."), category: t("Technology Adoption"), link: "https://agriculture.odisha.gov.in/", eligibility: t("All farmers"), state: t("Odisha") },
+  { name: t("Odisha Sustainable Agriculture"), description: t("Promotes resilient & eco-friendly practices."), category: t("Sustainable Agriculture"), link: "https://agriculture.odisha.gov.in/", eligibility: t("Farmers"), state: t("Odisha") }
+],[t]);
+
+const tamilNaduSchemes= useMemo((): Scheme[] => [
+  { name: t("TN Crop Insurance"), description: t("State crop insurance covering yield losses."), category: t("Insurance"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers in Tamil Nadu"), state: t("Tamil Nadu") },
+  { name: t("TN Micro Irrigation Scheme"), description: t("Supports drip & sprinkler irrigation."), category: t("Irrigation"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers in Tamil Nadu"), state: t("Tamil Nadu") },
+  { name: t("TN Soil Health Program"), description: t("Soil testing & nutrient recommendations."), category: t("Soil Health"), link: "https://www.tn.gov.in/agriculture", eligibility: t("All farmers"), state: t("Tamil Nadu") },
+  { name: t("TN KCC"), description: t("Credit support for cultivation & allied activities."), category: t("Credit"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers in Tamil Nadu"), state: t("Tamil Nadu") },
+  { name: t("TN Income Support Yojana"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://www.tn.gov.in/agriculture", eligibility: t("All farmers"), state: t("Tamil Nadu") },
+  { name: t("TN Mechanization Subsidy"), description: t("Subsidy for farm machinery & equipment."), category: t("Mechanization"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers & SHGs"), state: t("Tamil Nadu") },
+  { name: t("TN Organic Farming Program"), description: t("Promotes organic farming clusters."), category: t("Organic Farming"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Interested farmers"), state: t("Tamil Nadu") },
+  { name: t("TN Technology Adoption Program"), description: t("Training for modern agri-tech adoption."), category: t("Technology Adoption"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers in Tamil Nadu"), state: t("Tamil Nadu") },
+  { name: t("TN Sustainable Agriculture"), description: t("Promotes eco-friendly & resilient practices."), category: t("Sustainable Agriculture"), link: "https://www.tn.gov.in/agriculture", eligibility: t("Farmers in Tamil Nadu"), state: t("Tamil Nadu") }
+],[t]);
+
+const punjabSchemes= useMemo((): Scheme[] => [
+  { name: t("Punjab Crop Insurance"), description: t("Insurance against crop loss due to natural disasters."), category: t("Insurance"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers in Punjab"), state: t("Punjab") },
+  { name: t("Punjab Micro Irrigation"), description: t("Support for drip & sprinkler irrigation."), category: t("Irrigation"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers in Punjab"), state: t("Punjab") },
+  { name: t("Punjab Soil Health"), description: t("Soil testing & nutrient recommendations."), category: t("Soil Health"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers"), state: t("Punjab") },
+  { name: t("Punjab KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers"), state: t("Punjab") },
+  { name: t("Punjab Income Support"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://agriculture.punjab.gov.in/", eligibility: t("All farmers"), state: t("Punjab") },
+  { name: t("Punjab Mechanization Scheme"), description: t("Subsidy for farm machinery & equipment."), category: t("Mechanization"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Punjab") },
+  { name: t("Punjab Organic Farming Program"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Interested farmers"), state: t("Punjab") },
+  { name: t("Punjab Technology Adoption"), description: t("Training for modern agricultural tech."), category: t("Technology Adoption"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers"), state: t("Punjab") },
+  { name: t("Punjab Sustainable Agriculture"), description: t("Climate-resilient & eco-friendly practices."), category: t("Sustainable Agriculture"), link: "https://agriculture.punjab.gov.in/", eligibility: t("Farmers"), state: t("Punjab") }
+],[t]);
+
+const rajasthanSchemes= useMemo((): Scheme[] => [
+  { name: t("Rajasthan Crop Insurance"), description: t("Insurance for crop loss due to natural disasters."), category: t("Insurance"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers in Rajasthan"), state: t("Rajasthan") },
+  { name: t("Rajasthan Micro Irrigation"), description: t("Drip & sprinkler irrigation support."), category: t("Irrigation"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers in Rajasthan"), state: t("Rajasthan") },
+  { name: t("Rajasthan Soil Health"), description: t("Soil testing & nutrient improvement."), category: t("Soil Health"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers"), state: t("Rajasthan") },
+  { name: t("Rajasthan KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers"), state: t("Rajasthan") },
+  { name: t("Rajasthan Income Support"), description: t("Direct cash assistance for farmers."), category: t("Income Support"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("All farmers"), state: t("Rajasthan") },
+  { name: t("Rajasthan Mechanization Program"), description: t("Subsidy for farm machinery & equipment."), category: t("Mechanization"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Rajasthan") },
+  { name: t("Rajasthan Organic Farming"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Interested farmers"), state: t("Rajasthan") },
+  { name: t("Rajasthan Technology Adoption"), description: t("Training for modern agri-tech adoption."), category: t("Technology Adoption"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers"), state: t("Rajasthan") },
+  { name: t("Rajasthan Sustainable Agriculture"), description: t("Eco-friendly & climate-resilient practices."), category: t("Sustainable Agriculture"), link: "https://agriculture.rajasthan.gov.in/", eligibility: t("Farmers"), state: t("Rajasthan") }
+],[t]);
+
+const mpSchemes= useMemo((): Scheme[] => [
+  { name: t("MP Crop Insurance"), description: t("Insurance for crop loss due to natural disasters."), category: t("Insurance"), link: "https://mpagriculture.in/", eligibility: t("Farmers in MP"), state: t("Madhya Pradesh") },
+  { name: t("MP Micro Irrigation"), description: t("Support for drip & sprinkler irrigation."), category: t("Irrigation"), link: "https://mpagriculture.in/", eligibility: t("Farmers in MP"), state: t("Madhya Pradesh") },
+  { name: t("MP Soil Health Program"), description: t("Soil testing & nutrient management."), category: t("Soil Health"), link: "https://mpagriculture.in/", eligibility: t("Farmers in MP"), state: t("Madhya Pradesh") },
+  { name: t("MP KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://mpagriculture.in/", eligibility: t("Farmers"), state: t("Madhya Pradesh") },
+  { name: t("MP Income Support"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://mpagriculture.in/", eligibility: t("All farmers"), state: t("Madhya Pradesh") },
+  { name: t("MP Mechanization Scheme"), description: t("Support for farm machinery & equipment."), category: t("Mechanization"), link: "https://mpagriculture.in/", eligibility: t("Farmers & SHGs"), state: t("Madhya Pradesh") },
+  { name: t("MP Organic Farming"), description: t("Promotes organic farming clusters."), category: t("Organic Farming"), link: "https://mpagriculture.in/", eligibility: t("Interested farmers"), state: t("Madhya Pradesh") },
+  { name: t("MP Technology Adoption"), description: t("Modern agri-tech training & demos."), category: t("Technology Adoption"), link: "https://mpagriculture.in/", eligibility: t("Farmers"), state: t("Madhya Pradesh") },
+  { name: t("MP Sustainable Agriculture"), description: t("Promotes crop rotation & eco-friendly practices."), category: t("Sustainable Agriculture"), link: "https://mpagriculture.in/", eligibility: t("Farmers"), state: t("Madhya Pradesh") }
+],[t]);
+
+const cgSchemes= useMemo((): Scheme[] => [
+  { name: t("CG Crop Insurance"), description: t("Insurance for yield loss due to natural disasters."), category: t("Insurance"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers in CG"), state: t("Chhattisgarh") },
+  { name: t("CG Micro Irrigation"), description: t("Support for drip & sprinkler systems."), category: t("Irrigation"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers in CG"), state: t("Chhattisgarh") },
+  { name: t("CG Soil Health Program"), description: t("Soil testing & fertility improvement."), category: t("Soil Health"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers in CG"), state: t("Chhattisgarh") },
+  { name: t("CG KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers"), state: t("Chhattisgarh") },
+  { name: t("CG Income Support"), description: t("Direct cash assistance for farmers."), category: t("Income Support"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("All farmers"), state: t("Chhattisgarh") },
+  { name: t("CG Mechanization Scheme"), description: t("Subsidy for farm machinery."), category: t("Mechanization"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers & SHGs"), state: t("Chhattisgarh") },
+  { name: t("CG Organic Farming"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Interested farmers"), state: t("Chhattisgarh") },
+  { name: t("CG Technology Adoption"), description: t("Training for modern agri-tech adoption."), category: t("Technology Adoption"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers"), state: t("Chhattisgarh") },
+  { name: t("CG Sustainable Agriculture"), description: t("Eco-friendly & climate-resilient farming practices."), category: t("Sustainable Agriculture"), link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: t("Farmers"), state: t("Chhattisgarh") }
+],[t]);
 
 
-const maharashtraSchemes: Scheme[] = [
-  { name: "Jalyukta Shivar Abhiyan", description: "Water conservation & micro-irrigation.", category: "Irrigation", link: "https://mahaagri.gov.in/", eligibility: "Farmers in drought-prone areas", state: "Maharashtra" },
-  { name: "Maharashtra Crop Insurance", description: "Covers crop loss due to natural disasters.", category: "Insurance", link: "https://mahaagri.gov.in/", eligibility: "Farmers in Maharashtra", state: "Maharashtra" },
-  { name: "Maharashtra Income Support", description: "Direct cash support for small farmers.", category: "Income Support", link: "https://mahaagri.gov.in/", eligibility: "All farmers", state: "Maharashtra" },
-  { name: "Maharashtra Soil Health Program", description: "Soil testing & nutrient recommendations.", category: "Soil Health", link: "https://mahaagri.gov.in/", eligibility: "All farmers", state: "Maharashtra" },
-  { name: "Maharashtra KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://mahaagri.gov.in/", eligibility: "Farmers in Maharashtra", state: "Maharashtra" },
-  { name: "Maharashtra Mechanization Subsidy", description: "Subsidy for farm machinery & equipment.", category: "Mechanization", link: "https://mahaagri.gov.in/", eligibility: "Farmers & SHGs", state: "Maharashtra" },
-  { name: "Maharashtra Organic Farming", description: "Promotion of organic farming practices.", category: "Organic Farming", link: "https://mahaagri.gov.in/", eligibility: "Interested farmers", state: "Maharashtra" },
-  { name: "Maharashtra Technology Program", description: "Modern agri-tech adoption training.", category: "Technology Adoption", link: "https://mahaagri.gov.in/", eligibility: "Farmers in Maharashtra", state: "Maharashtra" },
-  { name: "Maharashtra Sustainable Agri Program", description: "Eco-friendly farming & crop rotation.", category: "Sustainable Agriculture", link: "https://mahaagri.gov.in/", eligibility: "All farmers", state: "Maharashtra" }
-];
+const wbSchemes= useMemo((): Scheme[] => [
+  { name: t("WB Crop Insurance"), description: t("Covers yield loss due to natural disasters."), category: t("Insurance"), link: "https://wbagriculture.in/", eligibility: t("Farmers in WB"), state: t("West Bengal") },
+  { name: t("WB Micro Irrigation"), description: t("Support for drip & sprinkler systems."), category: t("Irrigation"), link: "https://wbagriculture.in/", eligibility: t("Farmers in WB"), state: t("West Bengal") },
+  { name: t("WB Soil Health Program"), description: t("Soil testing & nutrient management."), category: t("Soil Health"), link: "https://wbagriculture.in/", eligibility: t("Farmers in WB"), state: t("West Bengal") },
+  { name: t("WB KCC"), description: t("Credit support for cultivation & allied activities."), category: t("Credit"), link: "https://wbagriculture.in/", eligibility: t("Farmers"), state: t("West Bengal") },
+  { name: t("WB Income Support Yojana"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://wbagriculture.in/", eligibility: t("All farmers"), state: t("West Bengal") },
+  { name: t("WB Mechanization Program"), description: t("Support for farm machinery & equipment."), category: t("Mechanization"), link: "https://wbagriculture.in/", eligibility: t("Farmers & SHGs"), state: t("West Bengal") },
+  { name: t("WB Organic Farming"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://wbagriculture.in/", eligibility: t("Interested farmers"), state: t("West Bengal") },
+  { name: t("WB Technology Adoption"), description: t("Training for modern agri-tech adoption."), category: t("Technology Adoption"), link: "https://wbagriculture.in/", eligibility: t("Farmers"), state: t("West Bengal") },
+  { name: t("WB Sustainable Agriculture"), description: t("Promotes climate-resilient & eco-friendly practices."), category: t("Sustainable Agriculture"), link: "https://wbagriculture.in/", eligibility: t("Farmers"), state: t("West Bengal") }
+],[t]);
 
-const gujaratSchemes: Scheme[] = [
-  { name: "CM Kisan Sahay Yojana", description: "Compensation for crop loss due to calamities.", category: "Insurance", link: "https://agri.gujarat.gov.in/", eligibility: "Farmers cultivating notified crops", state: "Gujarat" },
-  { name: "Gujarat Seed Subsidy", description: "Subsidy for certified seeds.", category: "Technology Adoption", link: "https://agri.gujarat.gov.in/", eligibility: "All farmers", state: "Gujarat" },
-  { name: "Gujarat Income Support", description: "Direct cash assistance for farmers.", category: "Income Support", link: "https://agri.gujarat.gov.in/", eligibility: "All farmers", state: "Gujarat" },
-  { name: "Gujarat Soil Health Program", description: "Soil testing and fertility improvement.", category: "Soil Health", link: "https://agri.gujarat.gov.in/", eligibility: "All farmers", state: "Gujarat" },
-  { name: "Gujarat KCC", description: "Credit for cultivation & equipment.", category: "Credit", link: "https://agri.gujarat.gov.in/", eligibility: "All farmers", state: "Gujarat" },
-  { name: "Gujarat Mechanization Scheme", description: "Support for farm machinery.", category: "Mechanization", link: "https://agri.gujarat.gov.in/", eligibility: "Farmers & SHGs", state: "Gujarat" },
-  { name: "Gujarat Organic Farming Program", description: "Promotes organic farming clusters.", category: "Organic Farming", link: "https://agri.gujarat.gov.in/", eligibility: "Interested farmers", state: "Gujarat" },
-  { name: "Gujarat Sustainable Agri Program", description: "Promotes eco-friendly & resilient practices.", category: "Sustainable Agriculture", link: "https://agri.gujarat.gov.in/", eligibility: "Farmers", state: "Gujarat" }
-];
+const andhraPradeshSchemes= useMemo((): Scheme[] => [
+  { name: t("AP Rythu Bima Yojana"), description: t("Crop insurance & financial assistance."), category: t("Insurance"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers in AP"), state: t("Andhra Pradesh") },
+  { name: t("AP Micro Irrigation"), description: t("Supports drip & sprinkler irrigation."), category: t("Irrigation"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers in AP"), state: t("Andhra Pradesh") },
+  { name: t("AP Soil Health Program"), description: t("Soil testing & nutrient recommendations."), category: t("Soil Health"), link: "https://apaid.ap.gov.in/", eligibility: t("All farmers"), state: t("Andhra Pradesh") },
+  { name: t("AP KCC"), description: t("Credit for cultivation & allied activities."), category: t("Credit"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers"), state: t("Andhra Pradesh") },
+  { name: t("AP Income Support"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://apaid.ap.gov.in/", eligibility: t("All farmers"), state: t("Andhra Pradesh") },
+  { name: t("AP Mechanization Program"), description: t("Subsidy for farm machinery & equipment."), category: t("Mechanization"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Andhra Pradesh") },
+  { name: t("AP Organic Farming"), description: t("Promotion of organic farming clusters."), category: t("Organic Farming"), link: "https://apaid.ap.gov.in/", eligibility: t("Interested farmers"), state: t("Andhra Pradesh") },
+  { name: t("AP Technology Adoption"), description: t("Training for modern agri-tech adoption."), category: t("Technology Adoption"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers"), state: t("Andhra Pradesh") },
+  { name: t("AP Sustainable Agriculture"), description: t("Promotes climate-resilient & eco-friendly practices."), category: t("Sustainable Agriculture"), link: "https://apaid.ap.gov.in/", eligibility: t("Farmers"), state: t("Andhra Pradesh") }
+],[t]);
 
-const odishaSchemes: Scheme[] = [
-  { name: "Odisha Farmer Assistance", description: "Subsidies for seeds, fertilizers, irrigation.", category: "Income Support", link: "https://agriculture.odisha.gov.in/", eligibility: "All farmers", state: "Odisha" },
-  { name: "Odisha Crop Insurance", description: "Insurance support against crop loss.", category: "Insurance", link: "https://agriculture.odisha.gov.in/", eligibility: "Farmers in Odisha", state: "Odisha" },
-  { name: "Odisha Soil Health", description: "Soil testing & management programs.", category: "Soil Health", link: "https://agriculture.odisha.gov.in/", eligibility: "All farmers", state: "Odisha" },
-  { name: "Odisha Micro Irrigation", description: "Drip & sprinkler irrigation assistance.", category: "Irrigation", link: "https://agriculture.odisha.gov.in/", eligibility: "All farmers", state: "Odisha" },
-  { name: "Odisha KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://agriculture.odisha.gov.in/", eligibility: "Farmers", state: "Odisha" },
-  { name: "Odisha Mechanization", description: "Support for farm machinery.", category: "Mechanization", link: "https://agriculture.odisha.gov.in/", eligibility: "Farmers", state: "Odisha" },
-  { name: "Odisha Organic Farming", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://agriculture.odisha.gov.in/", eligibility: "Interested farmers", state: "Odisha" },
-  { name: "Odisha Technology Adoption", description: "Modern agri tech training.", category: "Technology Adoption", link: "https://agriculture.odisha.gov.in/", eligibility: "All farmers", state: "Odisha" },
-  { name: "Odisha Sustainable Agriculture", description: "Promotes resilient & eco-friendly practices.", category: "Sustainable Agriculture", link: "https://agriculture.odisha.gov.in/", eligibility: "Farmers", state: "Odisha" }
-];
-
-const tamilNaduSchemes: Scheme[] = [
-  { name: "TN Crop Insurance", description: "State crop insurance covering yield losses.", category: "Insurance", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers in Tamil Nadu", state: "Tamil Nadu" },
-  { name: "TN Micro Irrigation Scheme", description: "Supports drip & sprinkler irrigation.", category: "Irrigation", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers in Tamil Nadu", state: "Tamil Nadu" },
-  { name: "TN Soil Health Program", description: "Soil testing & nutrient recommendations.", category: "Soil Health", link: "https://www.tn.gov.in/agriculture", eligibility: "All farmers", state: "Tamil Nadu" },
-  { name: "TN KCC", description: "Credit support for cultivation & allied activities.", category: "Credit", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers in Tamil Nadu", state: "Tamil Nadu" },
-  { name: "TN Income Support Yojana", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://www.tn.gov.in/agriculture", eligibility: "All farmers", state: "Tamil Nadu" },
-  { name: "TN Mechanization Subsidy", description: "Subsidy for farm machinery & equipment.", category: "Mechanization", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers & SHGs", state: "Tamil Nadu" },
-  { name: "TN Organic Farming Program", description: "Promotes organic farming clusters.", category: "Organic Farming", link: "https://www.tn.gov.in/agriculture", eligibility: "Interested farmers", state: "Tamil Nadu" },
-  { name: "TN Technology Adoption Program", description: "Training for modern agri-tech adoption.", category: "Technology Adoption", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers in Tamil Nadu", state: "Tamil Nadu" },
-  { name: "TN Sustainable Agriculture", description: "Promotes eco-friendly & resilient practices.", category: "Sustainable Agriculture", link: "https://www.tn.gov.in/agriculture", eligibility: "Farmers in Tamil Nadu", state: "Tamil Nadu" }
-];
-
-const punjabSchemes: Scheme[] = [
-  { name: "Punjab Crop Insurance", description: "Insurance against crop loss due to natural disasters.", category: "Insurance", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers in Punjab", state: "Punjab" },
-  { name: "Punjab Micro Irrigation", description: "Support for drip & sprinkler irrigation.", category: "Irrigation", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers in Punjab", state: "Punjab" },
-  { name: "Punjab Soil Health", description: "Soil testing & nutrient recommendations.", category: "Soil Health", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers", state: "Punjab" },
-  { name: "Punjab KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers", state: "Punjab" },
-  { name: "Punjab Income Support", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://agriculture.punjab.gov.in/", eligibility: "All farmers", state: "Punjab" },
-  { name: "Punjab Mechanization Scheme", description: "Subsidy for farm machinery & equipment.", category: "Mechanization", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers & SHGs", state: "Punjab" },
-  { name: "Punjab Organic Farming Program", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://agriculture.punjab.gov.in/", eligibility: "Interested farmers", state: "Punjab" },
-  { name: "Punjab Technology Adoption", description: "Training for modern agricultural tech.", category: "Technology Adoption", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers", state: "Punjab" },
-  { name: "Punjab Sustainable Agriculture", description: "Climate-resilient & eco-friendly practices.", category: "Sustainable Agriculture", link: "https://agriculture.punjab.gov.in/", eligibility: "Farmers", state: "Punjab" }
-];
-
-const rajasthanSchemes: Scheme[] = [
-  { name: "Rajasthan Crop Insurance", description: "Insurance for crop loss due to natural disasters.", category: "Insurance", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers in Rajasthan", state: "Rajasthan" },
-  { name: "Rajasthan Micro Irrigation", description: "Drip & sprinkler irrigation support.", category: "Irrigation", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers in Rajasthan", state: "Rajasthan" },
-  { name: "Rajasthan Soil Health", description: "Soil testing & nutrient improvement.", category: "Soil Health", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers", state: "Rajasthan" },
-  { name: "Rajasthan KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers", state: "Rajasthan" },
-  { name: "Rajasthan Income Support", description: "Direct cash assistance for farmers.", category: "Income Support", link: "https://agriculture.rajasthan.gov.in/", eligibility: "All farmers", state: "Rajasthan" },
-  { name: "Rajasthan Mechanization Program", description: "Subsidy for farm machinery & equipment.", category: "Mechanization", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers & SHGs", state: "Rajasthan" },
-  { name: "Rajasthan Organic Farming", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Interested farmers", state: "Rajasthan" },
-  { name: "Rajasthan Technology Adoption", description: "Training for modern agri-tech adoption.", category: "Technology Adoption", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers", state: "Rajasthan" },
-  { name: "Rajasthan Sustainable Agriculture", description: "Eco-friendly & climate-resilient practices.", category: "Sustainable Agriculture", link: "https://agriculture.rajasthan.gov.in/", eligibility: "Farmers", state: "Rajasthan" }
-];
-
-const mpSchemes: Scheme[] = [
-  { name: "MP Crop Insurance", description: "Insurance for crop loss due to natural disasters.", category: "Insurance", link: "https://mpagriculture.in/", eligibility: "Farmers in MP", state: "Madhya Pradesh" },
-  { name: "MP Micro Irrigation", description: "Support for drip & sprinkler irrigation.", category: "Irrigation", link: "https://mpagriculture.in/", eligibility: "Farmers in MP", state: "Madhya Pradesh" },
-  { name: "MP Soil Health Program", description: "Soil testing & nutrient management.", category: "Soil Health", link: "https://mpagriculture.in/", eligibility: "Farmers in MP", state: "Madhya Pradesh" },
-  { name: "MP KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://mpagriculture.in/", eligibility: "Farmers", state: "Madhya Pradesh" },
-  { name: "MP Income Support", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://mpagriculture.in/", eligibility: "All farmers", state: "Madhya Pradesh" },
-  { name: "MP Mechanization Scheme", description: "Support for farm machinery & equipment.", category: "Mechanization", link: "https://mpagriculture.in/", eligibility: "Farmers & SHGs", state: "Madhya Pradesh" },
-  { name: "MP Organic Farming", description: "Promotes organic farming clusters.", category: "Organic Farming", link: "https://mpagriculture.in/", eligibility: "Interested farmers", state: "Madhya Pradesh" },
-  { name: "MP Technology Adoption", description: "Modern agri-tech training & demos.", category: "Technology Adoption", link: "https://mpagriculture.in/", eligibility: "Farmers", state: "Madhya Pradesh" },
-  { name: "MP Sustainable Agriculture", description: "Promotes crop rotation & eco-friendly practices.", category: "Sustainable Agriculture", link: "https://mpagriculture.in/", eligibility: "Farmers", state: "Madhya Pradesh" }
-];
-
-const cgSchemes: Scheme[] = [
-  { name: "CG Crop Insurance", description: "Insurance for yield loss due to natural disasters.", category: "Insurance", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers in CG", state: "Chhattisgarh" },
-  { name: "CG Micro Irrigation", description: "Support for drip & sprinkler systems.", category: "Irrigation", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers in CG", state: "Chhattisgarh" },
-  { name: "CG Soil Health Program", description: "Soil testing & fertility improvement.", category: "Soil Health", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers in CG", state: "Chhattisgarh" },
-  { name: "CG KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers", state: "Chhattisgarh" },
-  { name: "CG Income Support", description: "Direct cash assistance for farmers.", category: "Income Support", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "All farmers", state: "Chhattisgarh" },
-  { name: "CG Mechanization Scheme", description: "Subsidy for farm machinery.", category: "Mechanization", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers & SHGs", state: "Chhattisgarh" },
-  { name: "CG Organic Farming", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Interested farmers", state: "Chhattisgarh" },
-  { name: "CG Technology Adoption", description: "Training for modern agri-tech adoption.", category: "Technology Adoption", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers", state: "Chhattisgarh" },
-  { name: "CG Sustainable Agriculture", description: "Eco-friendly & climate-resilient farming practices.", category: "Sustainable Agriculture", link: "https://chhattisgarh.nic.in/en/agriculture", eligibility: "Farmers", state: "Chhattisgarh" }
-];
+const haryanaSchemes= useMemo((): Scheme[] => [
+  { name: t("Haryana Crop Insurance"), description: t("Insurance for crop loss due to natural disasters."), category: t("Insurance"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers in Haryana"), state: t("Haryana") },
+  { name: t("Haryana Micro Irrigation"), description: t("Support for drip & sprinkler irrigation."), category: t("Irrigation"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers in Haryana"), state: t("Haryana") },
+  { name: t("Haryana Soil Health Program"), description: t("Soil testing & fertility improvement."), category: t("Soil Health"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers"), state: t("Haryana") },
+  { name: t("Haryana KCC"), description: t("Credit support for cultivation & allied activities."), category: t("Credit"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers"), state: t("Haryana") },
+  { name: t("Haryana Income Support"), description: t("Direct cash assistance for small farmers."), category: t("Income Support"), link: "https://haryanaagriculture.gov.in/", eligibility: t("All farmers"), state: t("Haryana") },
+  { name: t("Haryana Mechanization"), description: t("Support for farm machinery & equipment."), category: t("Mechanization"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers & SHGs"), state: t("Haryana") },
+  { name: t("Haryana Organic Farming"), description: t("Promotes organic farming clusters."), category: t("Organic Farming"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Interested farmers"), state: t("Haryana") },
+  { name: t("Haryana Technology Adoption"), description: t("Modern agri-tech training & demos."), category: t("Technology Adoption"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers"), state: t("Haryana") },
+  { name: t("Haryana Sustainable Agriculture"), description: t("Promotes eco-friendly & resilient farming."), category: t("Sustainable Agriculture"), link: "https://haryanaagriculture.gov.in/", eligibility: t("Farmers"), state: t("Haryana") }
+],[t]);
 
 
-const wbSchemes: Scheme[] = [
-  { name: "WB Crop Insurance", description: "Covers yield loss due to natural disasters.", category: "Insurance", link: "https://wbagriculture.in/", eligibility: "Farmers in WB", state: "West Bengal" },
-  { name: "WB Micro Irrigation", description: "Support for drip & sprinkler systems.", category: "Irrigation", link: "https://wbagriculture.in/", eligibility: "Farmers in WB", state: "West Bengal" },
-  { name: "WB Soil Health Program", description: "Soil testing & nutrient management.", category: "Soil Health", link: "https://wbagriculture.in/", eligibility: "Farmers in WB", state: "West Bengal" },
-  { name: "WB KCC", description: "Credit support for cultivation & allied activities.", category: "Credit", link: "https://wbagriculture.in/", eligibility: "Farmers", state: "West Bengal" },
-  { name: "WB Income Support Yojana", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://wbagriculture.in/", eligibility: "All farmers", state: "West Bengal" },
-  { name: "WB Mechanization Program", description: "Support for farm machinery & equipment.", category: "Mechanization", link: "https://wbagriculture.in/", eligibility: "Farmers & SHGs", state: "West Bengal" },
-  { name: "WB Organic Farming", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://wbagriculture.in/", eligibility: "Interested farmers", state: "West Bengal" },
-  { name: "WB Technology Adoption", description: "Training for modern agri-tech adoption.", category: "Technology Adoption", link: "https://wbagriculture.in/", eligibility: "Farmers", state: "West Bengal" },
-  { name: "WB Sustainable Agriculture", description: "Promotes climate-resilient & eco-friendly practices.", category: "Sustainable Agriculture", link: "https://wbagriculture.in/", eligibility: "Farmers", state: "West Bengal" }
-];
-
-const andhraPradeshSchemes: Scheme[] = [
-  { name: "AP Rythu Bima Yojana", description: "Crop insurance & financial assistance.", category: "Insurance", link: "https://apaid.ap.gov.in/", eligibility: "Farmers in AP", state: "Andhra Pradesh" },
-  { name: "AP Micro Irrigation", description: "Supports drip & sprinkler irrigation.", category: "Irrigation", link: "https://apaid.ap.gov.in/", eligibility: "Farmers in AP", state: "Andhra Pradesh" },
-  { name: "AP Soil Health Program", description: "Soil testing & nutrient recommendations.", category: "Soil Health", link: "https://apaid.ap.gov.in/", eligibility: "All farmers", state: "Andhra Pradesh" },
-  { name: "AP KCC", description: "Credit for cultivation & allied activities.", category: "Credit", link: "https://apaid.ap.gov.in/", eligibility: "Farmers", state: "Andhra Pradesh" },
-  { name: "AP Income Support", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://apaid.ap.gov.in/", eligibility: "All farmers", state: "Andhra Pradesh" },
-  { name: "AP Mechanization Program", description: "Subsidy for farm machinery & equipment.", category: "Mechanization", link: "https://apaid.ap.gov.in/", eligibility: "Farmers & SHGs", state: "Andhra Pradesh" },
-  { name: "AP Organic Farming", description: "Promotion of organic farming clusters.", category: "Organic Farming", link: "https://apaid.ap.gov.in/", eligibility: "Interested farmers", state: "Andhra Pradesh" },
-  { name: "AP Technology Adoption", description: "Training for modern agri-tech adoption.", category: "Technology Adoption", link: "https://apaid.ap.gov.in/", eligibility: "Farmers", state: "Andhra Pradesh" },
-  { name: "AP Sustainable Agriculture", description: "Promotes climate-resilient & eco-friendly practices.", category: "Sustainable Agriculture", link: "https://apaid.ap.gov.in/", eligibility: "Farmers", state: "Andhra Pradesh" }
-];
-
-const haryanaSchemes: Scheme[] = [
-  { name: "Haryana Crop Insurance", description: "Insurance for crop loss due to natural disasters.", category: "Insurance", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers in Haryana", state: "Haryana" },
-  { name: "Haryana Micro Irrigation", description: "Support for drip & sprinkler irrigation.", category: "Irrigation", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers in Haryana", state: "Haryana" },
-  { name: "Haryana Soil Health Program", description: "Soil testing & fertility improvement.", category: "Soil Health", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers", state: "Haryana" },
-  { name: "Haryana KCC", description: "Credit support for cultivation & allied activities.", category: "Credit", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers", state: "Haryana" },
-  { name: "Haryana Income Support", description: "Direct cash assistance for small farmers.", category: "Income Support", link: "https://haryanaagriculture.gov.in/", eligibility: "All farmers", state: "Haryana" },
-  { name: "Haryana Mechanization", description: "Support for farm machinery & equipment.", category: "Mechanization", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers & SHGs", state: "Haryana" },
-  { name: "Haryana Organic Farming", description: "Promotes organic farming clusters.", category: "Organic Farming", link: "https://haryanaagriculture.gov.in/", eligibility: "Interested farmers", state: "Haryana" },
-  { name: "Haryana Technology Adoption", description: "Modern agri-tech training & demos.", category: "Technology Adoption", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers", state: "Haryana" },
-  { name: "Haryana Sustainable Agriculture", description: "Promotes eco-friendly & resilient farming.", category: "Sustainable Agriculture", link: "https://haryanaagriculture.gov.in/", eligibility: "Farmers", state: "Haryana" }
-];
-
-
-const schemes: Scheme[] = [
+const schemes= useMemo((): Scheme[] => [
   ...allIndiaSchemes,
   ...upSchemes,
   ...biharSchemes,
@@ -642,43 +663,35 @@ const schemes: Scheme[] = [
   ...wbSchemes,
   ...andhraPradeshSchemes,
   ...haryanaSchemes
-];
+],[t]);
+
+const categories = useMemo(()=> [
+  t("All"), t("Income Support"), t("Insurance"), t("Soil Health"), t("Irrigation"),
+  t("Credit"), t("Mechanization"), t("Organic Farming"), t("Technology Adoption"),
+  t("Sustainable Agriculture")
+],[t]);
+
+const statesList = useMemo(()=>[
+  t("All States"), t("All India"), t("Andhra Pradesh"), t("Bihar"), t("Chhattisgarh"), t("Gujarat"),
+  t("Haryana"), t("Karnataka"), t("Madhya Pradesh"), t("Maharashtra"), t("Odisha"), t("Punjab"),
+  t("Rajasthan"), t("Tamil Nadu"), t("Telangana"), t("Uttar Pradesh"), t("West Bengal")
+],[t]);
 
 
-const categories = [
-  "All", "Income Support", "Insurance", "Soil Health", "Irrigation",
-  "Credit", "Mechanization", "Organic Farming", "Technology Adoption",
-  "Sustainable Agriculture"
-];
-
-const statesList = [
-  "All States", "All India", "Andhra Pradesh", "Bihar", "Chhattisgarh", "Gujarat",
-  "Haryana", "Karnataka", "Madhya Pradesh", "Maharashtra", "Odisha", "Punjab",
-  "Rajasthan", "Tamil Nadu", "Telangana", "Uttar Pradesh", "West Bengal"
-];
-
-const INITIAL_SCHEMES_LIMIT = 9;
-const SCHEMES_PER_LOAD = 9;
-
-export default function Resources() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedState, setSelectedState] = useState('All States');
-  const [visibleSchemesLimit, setVisibleSchemesLimit] = useState(INITIAL_SCHEMES_LIMIT);
-
-  const filteredSchemes = schemes
+  const filteredSchemes = useMemo(()=> schemes
     .filter(scheme => {
       const matchesSearch =
         scheme.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         scheme.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesCategory =
-        selectedCategory === 'All' || scheme.category === selectedCategory;
+        selectedCategory === t('All') || scheme.category === selectedCategory;
 
+      // Note: State filtering logic needs to be updated to compare with translated strings
       const matchesState =
-        selectedState === 'All States' ||
-        (selectedState === 'All India' && scheme.state === 'All India') ||
-        (selectedState !== 'All India' && (scheme.state === selectedState || scheme.state === 'All India'));
+        selectedState === t('All States') ||
+        (selectedState === t('All India') && scheme.state === t('All India')) ||
+        (selectedState !== t('All India') && (scheme.state === selectedState || scheme.state === t('All India')));
 
       return matchesSearch && matchesCategory && matchesState;
     })
@@ -686,7 +699,7 @@ export default function Resources() {
       if (a.state === selectedState) return -1;
       if (b.state === selectedState) return 1;
       return 0;
-    });
+    }), [schemes, searchQuery, selectedCategory, selectedState, t]);
 
   const schemesToDisplay = filteredSchemes.slice(0, visibleSchemesLimit);
   const handleLoadMore = () => setVisibleSchemesLimit(prev => prev + SCHEMES_PER_LOAD);
@@ -702,10 +715,10 @@ export default function Resources() {
           {/* Header Section */}
           <div className="text-center mb-10">
             <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-sm">
-              Government Schemes & Yojanas
+              {t("Government Schemes & Yojanas")}
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Explore central and state government schemes designed to empower Indian farmers 🌾
+              {t("Explore central and state government schemes designed to empower Indian farmers")} 🌾
             </p>
           </div>
 
@@ -716,7 +729,7 @@ export default function Resources() {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search schemes..."
+                    placeholder={t("Search schemes...")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 border-0 focus:ring-2 focus:ring-emerald-400 bg-white/70 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl"
@@ -725,7 +738,9 @@ export default function Resources() {
 
                 <Select value={selectedState} onValueChange={setSelectedState}>
                   <SelectTrigger className="w-full md:w-[200px] bg-white/70 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl border-0">
-                    <SelectValue>{selectedState !== "All States" ? selectedState : "Select State"}</SelectValue>
+                    <SelectValue>
+                      {selectedState !== t("All States") ? selectedState : t("Select State")}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {statesList.map((state) => (
@@ -778,11 +793,11 @@ export default function Resources() {
                 <CardContent>
                   <div className="space-y-3">
                     <div>
-                      <p className="text-sm font-semibold text-foreground">Eligibility:</p>
+                      <p className="text-sm font-semibold text-foreground">{t("Eligibility:")}</p>
                       <p className="text-sm text-muted-foreground">{scheme.eligibility}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">Coverage:</p>
+                      <p className="text-sm font-semibold text-foreground">{t("Coverage:")}</p>
                       <p className="text-sm text-muted-foreground">{scheme.state}</p>
                     </div>
                     <Button
@@ -791,7 +806,7 @@ export default function Resources() {
                       onClick={() => window.open(scheme.link, '_blank')}
                     >
                       <ExternalLink className="h-4 w-4 mr-2" />
-                      View Official Website
+                      {t("View Official Website")}
                     </Button>
                   </div>
                 </CardContent>
@@ -801,7 +816,7 @@ export default function Resources() {
 
           {filteredSchemes.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">No schemes found matching your criteria.</p>
+              <p className="text-muted-foreground text-lg">{t("No schemes found matching your criteria.")}</p>
             </div>
           )}
 
@@ -813,7 +828,7 @@ export default function Resources() {
                 variant="default"
                 className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-emerald-500 to-blue-600 text-white shadow-lg hover:shadow-xl rounded-full transition-all hover:scale-105"
               >
-                Load More Schemes ({filteredSchemes.length - visibleSchemesLimit} remaining)
+                {t("Load More Schemes ({{remaining}} remaining)", { remaining: filteredSchemes.length - visibleSchemesLimit })}
               </Button>
             </div>
           )}
@@ -821,15 +836,15 @@ export default function Resources() {
           {/* Additional Resources */}
           <Card className="mt-16 border-0 bg-white/40 dark:bg-white/10 backdrop-blur-md rounded-2xl shadow-lg">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold text-foreground">Additional Resources</CardTitle>
-              <CardDescription>Official government portals for more information</CardDescription>
+              <CardTitle className="text-xl font-semibold text-foreground">{t("Additional Resources")}</CardTitle>
+              <CardDescription>{t("Official government portals for more information")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {[
-                  { name: "Ministry of Agriculture", url: "https://agriwelfare.gov.in/" },
-                  { name: "PM-KISAN Portal", url: "https://pmkisan.gov.in" },
-                  { name: "Open Government Data", url: "https://data.gov.in" }
+                  { name: t("Ministry of Agriculture"), url: "https://agriwelfare.gov.in/" },
+                  { name: t("PM-KISAN Portal"), url: "https://pmkisan.gov.in" },
+                  { name: t("Open Government Data"), url: "https://data.gov.in" }
                 ].map((res, idx) => (
                   <Button
                     key={idx}
